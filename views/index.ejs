@@ -1,6 +1,129 @@
-<%- include('includes/header', {tituloweb: 'EJS'}); %>
+<%- include('includes/header', {tituloweb: 'Clinica'}); %>
 
-    <h1>Hola a EJS <%= titulo %></h1>
-    
+    <!--Pa Arriba-->
+		<div id="back-top">Ir a Arriba</div>
+		<div class="main">
+			<div class="div-content">  
+				<div class="top_section">
+					<div class="container_12">
+						<div class="grid_12">
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+
+				<!--Header-->
+				<%- include('includes/menu'); %>
+
+				<!--Contenido-->
+				<div id="carruselInicio" class="carousel carousel-dark slide" data-bs-ride="carousel">
+					<div class="carousel-indicators">
+					  <button type="button" data-bs-target="#carruselInicio" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+					  <button type="button" data-bs-target="#carruselInicio" data-bs-slide-to="1" aria-label="Slide 2"></button>
+					  <button type="button" data-bs-target="#carruselInicio" data-bs-slide-to="2" aria-label="Slide 3"></button>
+					</div>
+					<div class="carousel-inner">
+						<div class="carousel-item active" data-bs-interval="3000">
+							<img src="/images/slide1.jpg" class="d-block w-100" alt="Slide 1">
+							<div class="carousel-caption d-none d-md-block">
+								<p class="slider_txt">La última tendencia en cuidado estético bucal</p>
+								<br>
+								<a href="#" class="more_btn4">Agenda tu cita</a>
+							</div>
+						</div>
+						<div class="carousel-item" data-bs-interval="3000">
+							<img src="/images/slide2.jpg" class="d-block w-100" alt="Slide 2">
+							<div class="carousel-caption d-none d-md-block">
+								<p class="slider_txt">Disfrute su nueva sonrisa deslumbrante!</p>
+								<br>
+								<a href="#" class="more_btn4">Agenda tu cita</a>
+							</div>
+						</div>
+						<div class="carousel-item" data-bs-interval="3000">
+							<img src="/images/slide3.jpg" class="d-block w-100" alt="Slide 3">
+							<div class="carousel-caption d-none d-md-block">
+								<p class="slider_txt">Realizando milagros de odontología cosmética</p>
+								<br>
+								<a href="#" class="more_btn4">Agenda tu cita</a>
+							</div>
+						</div>
+					</div>
+					<button class="carousel-control-prev" type="button" data-bs-target="#carruselInicio" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Proximo</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carruselInicio" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Anterior</span>
+					</button>
+				</div>
+
+				<div class="container_12">
+					<div class="grid_12">
+						<div class="wrapper">
+							<div class="banner1">
+								<p>Blanqueamiento SOLO $80000</p>
+								<a href="#" class="link1">Leer más</a>
+							</div>
+							
+							<div class="banner1 v2">
+								<p>Implante Dental INFO</p>
+								<a href="#" class="link1">Leer más</a>
+							</div>
+							
+							<div class="banner1 v3">
+								<p>Guía del Consumidor de Odontología</p>
+								<a href="#" class="link1">Leer más</a>
+							</div>
+						</div>
+						
+						<div class="wrapper hline2">
+							<div class="grid_7 alpha">
+								<img src="/images/img_6.jpeg" alt="" class="img1">
+								<h3>Bienvenidos!</h3>
+								<p><span class="color1">Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris. Phasellus porta. Fusce suscipit varius mi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</span><br><br>Aenean nonummy hendrerit mauris. Phasellus porta. Fusce suscipit varius mi. Cum sociis natoque penatibus et magnis dis.</p>
+							</div>
+							
+							<div class="grid_4 prefix_1 omega">
+								<div class="box-1">
+									<ul class="list1">
+										<li><a href="#">Diseño de sonrisas</a></li>
+										<li><a href="#">Carillas de Porcelanas</a></li>
+										<li><a href="#">Unión de dientes</a></li>
+										<li><a href="#">Rellenos</a></li>
+										<li><a href="#">Blanqueamiento</a></li>
+									</ul>
+									<a href="#" class="link2">Más servicios</a>
+								</div>
+							</div>
+						</div>
+						
+						<div class="wrapper">
+							<div class="grid_7 alpha">
+								<h2>Las últimas tendencias en cuidado estético bucal</h2>
+								<p>Praesent vestibulum molestie lacus. Aenean nonummy. Hendrerit mauris phasellus porta. Fusce suscipit varius mi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus</p>
+								<ul class="listWithMarker">
+									<li><a href="#">Praesent vestibulum molestie lacus</a></li>
+									<li><a href="#">Aenean nonummy</a></li>
+									<li><a href="#">Hendrerit mauris phasellus porta</a></li>
+									<li><a href="#">Fusce suscipit varius mi. Cum sociis natoque</a></li>
+									<li><a href="#">Penatibus et magnis dis parturient montes</a></li>
+								</ul>
+							</div>
+							
+							<div class="grid_4 prefix_1 omega">
+								<div class="box-2">
+									<div class="img_container">
+										<img src="/images/img_8.jpeg" alt="">
+									</div>
+									<p>„ Praesent vestibulum molestie lacus. Aenean nonummy. Hendrerit mauris phasellus.“</p>
+									<a href="#" class="link3">Mary Hernandez, <span>35 años</span></a>
+								</div>
+							</div>
+						</div>
+						<div class="clear">						
+						</div>
+					</div>
+				</div>
+
 <%- include('includes/footer'); %>
- 

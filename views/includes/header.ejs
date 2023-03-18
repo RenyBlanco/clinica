@@ -1,9 +1,77 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= tituloweb %></title>
-  </head>
+	<head>
+		<title><%= tituloweb %></title>
+		<meta charset="utf-8">
+		<meta name = "format-detection" content = "telephone=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+		
+		<!--BootStrap-->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+		
+		<!--CSS-->
+		<link rel="stylesheet" href="/css/style.css">
 
-  <body>
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+			integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+			crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+		<style>
+			.slider_txt{
+				position: relative;
+				display: inline-block;
+				font:50px/50px 'Racing Sans One', Arial, sans-serif;
+				color:#fff; 
+				text-align: center;
+				margin-top: 44px;
+				max-width: 680px;
+				letter-spacing: -1px;
+			}
+		</style>
+		<script src="/js/jquery.js"></script>
+
+		<script src="/js/jquery-migrate-1.1.1.js"></script>
+		<script src="/js/jquery.easing.1.3.js"></script>
+		<script src="/js/scroll_to_top.js"></script>
+		<script src="/js/script.js"></script>
+		<script src="/js/sForm.js"></script>
+		<script src="/js/jquery.equalheights.js"></script>
+		<script src="/js/superfish.js"></script>
+		<script src="/js/jquery.mobilemenu.js"></script>
+		<script src="/js/touchTouch.jquery.js"></script>
+		<script src="/js/jquery.tools.min.js"></script>
+		<!-- Carrusel por JQuery-->
+		<script src="/js/jquery.carouFredSel-6.1.0.js"></script>
+		<script src="/js/jquery.touchSwipe.min.js"></script>
+		<script>
+			$(window).load( function(){
+				//  Responsive
+				$('#galeria').carouFredSel({
+					auto: false,
+					responsive: true,
+					width: '100%',      
+					scroll: 1,
+					prev: '#prev',
+					next: '#prox',
+					pagination: false,
+					mousewheel: false,
+					swipe: {
+						onMouse: true,
+						onTouch: true
+					},
+					items: {
+						width:380,
+						height: 'auto', // Para ajustar la altura
+						visible: {
+							min: 2,
+							max: 2
+						}
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>

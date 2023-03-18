@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Control de Pacientes</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name = "format-detection" content = "telephone=no" />
+		<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+        <!-- Google Font: Source Sans Pro -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
+        <!-- overlayScrollbars -->
+        <link rel="stylesheet" href="js/overlayScrollbars/css/OverlayScrollbars.min.css">
+
+        <!-- Estilo -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+    </head>
+    <body class="hold-transition sidebar-mini layout-fixed">
+        <!-- Site wrapper -->
+        <div class="wrapper">
+            <!-- Navbar -->
+            <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="pushmenu" href="#" role="button" title="Contraer/Expander menú lateral"><i class="fas fa-bars"></i></a>
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <a href="/" class="nav-link">Inicio</a>
+                    </li>
+                </ul>
+
+                <!-- Right navbar -->
+                <ul class="navbar-nav ml-auto">
+                    <!-- Dropdown Menu -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-bs-toggle="dropdown" href="#" title="Opciones">
+                            <i class="fa fa-user"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                            <a href="#" class="dropdown-item">
+                                <div class="media">
+                                    <div class="media-body">
+                                        <h3 class="dropdown-item-title"><i class="fa-solid fa-gear"></i> Perfil</h3>
+                                    </div>
+                                </div>
+                            </a>
+                            
+                            <div class="dropdown-divider"></div>
+                            <a href="/login" class="dropdown-item">
+                                <div class="media">
+                                    <div class="media-body">
+                                        <h3 class="dropdown-item-title"><i class="fa-solid fa-right-to-bracket"></i> Cerrar Sesión</h3>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="fullscreen" href="#" role="button" title="Expandir pantalla">
+                            <i class="fas fa-expand-arrows-alt"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.navbar -->
+            <!-- Sidebar Menu -->
+            <aside class="main-sidebar sidebar-light-primary elevation-4">
+                <!-- Brand Logo -->
+                <a href="#" class="brand-link">
+                <img src="images/LogoB.png" alt="RB Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light">Odonto</span>
+                </a>
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>Tablero</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-person-circle-plus"></i>
+                                    <p>Pacientes <i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Administración</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Certificados</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Historias</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Otros</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-table"></i>
+                                    <p>Bodega <i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Inventario Material</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Compra</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Recepción</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-header">REPORTES</li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-chart-pie"></i>
+                                    <p>Reportes <i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Ingresos</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Salidas</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Ingresos vs Salidas</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Inventario Bodega</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-header">MISCELANIOS</li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fa-solid fa-gears"></i>
+                                    <p>
+                                    Configuración
+                                    <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Datos Empresa</p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="nav-icon fas fa-database"></i>
+                                            <p>Tablas <i class="fas fa-angle-left right"></i></p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Unidades</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Categorías</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Ingreso Productos</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Proveedores</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="nav-icon fa-solid fa-door-open"></i>
+                                            <p>Accesos <i class="right fas fa-angle-left"></i></p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Roles</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Usuarios</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Modulos</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Bodegas<span class="right badge badge-info">Definición</span></p>
+                                        </a>
+                                    </li>
+                                    
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- Content Wrapper-->
+            <div class="content-wrapper">
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1>Tablero</h1>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contenido -->
+                <section class="content">
+                    <div class="container-fluid">
+                    <div class="row">
+                            <div class="col-md-3 col-sm-6 col-12">
+                                <div class="info-box bg-teal">
+                                    <span class="info-box-icon"><i class="fa-regular fa-face-grin"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Pacientes</span>
+                                        <span class="info-box-number">10</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 70%"></div>
+                                        </div>
+                                        <span class="progress-description"> 70% incremento en 30 días</span>
+                                    </div> <!-- /.info-box-content -->
+                                </div> <!-- /.info-box -->
+                            </div> <!-- /.col -->
+
+                            <div class="col-md-3 col-sm-6 col-12">
+                                <div class="info-box bg-cyan">
+                                    <span class="info-box-icon"><i class="fa-regular fa-calendar-check"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Citas</span>
+                                        <span class="info-box-number">2</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 70%"></div>
+                                        </div>
+                                        <span class="progress-description"> 70% decremento en 30 días</span>
+                                    </div> <!-- /.info-box-content -->
+                                </div> <!-- /.info-box -->
+                            </div> <!-- /.col -->
+
+                            <div class="col-md-3 col-sm-6 col-12">
+                                <div class="info-box bg-blue">
+                                    <span class="info-box-icon"><i class="fa-regular fa-calendar-xmark"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Cancelados</span>
+                                        <span class="info-box-number">1</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 70%;  color:black;" ></div>
+                                        </div>
+                                        <span class="progress-description"> 70% incremento en 30 días</span>
+                                    </div> <!-- /.info-box-content -->
+                                </div> <!-- /.info-box -->
+                            </div> <!-- /.col -->
+                            <div class="col-md-3 col-sm-6 col-12">
+                                <div class="info-box bg-purple">
+                                    <span class="info-box-icon"><i class="fa-solid fa-file-signature"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Constancias</span>
+                                        <span class="info-box-number">1</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 70%"></div>
+                                        </div>
+                                        <span class="progress-description"> 70% incremento en 30 días</span>
+                                    </div> <!-- /.info-box-content -->
+                                </div> <!-- /.info-box -->
+                            </div> <!-- /.col -->
+                        </div> <!-- /.row -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card card-orange shadow-lg">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Alarma 1</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                        </div> <!-- /.card-tools -->
+                                    </div> <!-- /.card-header -->
+                                    <div class="card-body">
+                                        The body of the card
+                                    </div> <!-- /.card-body -->
+                                </div> <!-- /.card -->
+                            </div> <!-- /.col -->
+                            <div class="col-md-3">
+                                <div class="card card-orange shadow-lg">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Alarma 2</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                        </div> <!-- /.card-tools -->
+                                    </div> <!-- /.card-header -->
+                                    <div class="card-body">
+                                        The body of the card
+                                    </div> <!-- /.card-body -->
+                                </div> <!-- /.card -->
+                            </div> <!-- /.col -->
+                            <div class="col-md-3">
+                                <div class="card card-orange shadow-lg">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Alarma 3</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                        </div> <!-- /.card-tools -->
+                                    </div> <!-- /.card-header -->
+                                    <div class="card-body">
+                                        The body of the card
+                                    </div> <!-- /.card-body -->
+                                </div> <!-- /.card -->
+                            </div> <!-- /.col -->
+                            <div class="col-md-3">
+                                <div class="card card-orange shadow-lg">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Alarma 4</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                        </div> <!-- /.card-tools -->
+                                    </div> <!-- /.card-header -->
+                                    <div class="card-body">
+                                        The body of the card
+                                    </div> <!-- /.card-body -->
+                                </div> <!-- /.card -->
+                            </div> <!-- /.col -->
+                        </div> <!-- /.row -->
+                        <hr>
+                        
+                    </div>
+                </section> <!-- /.contenido -->
+            </div> <!-- /.content-wrapper -->
+            <!-- /.content-wrapper -->
+            
+            <footer class="main-footer">
+                <div class="float-right d-none d-sm-block">
+                    <b>Version</b> 1.0.0
+                </div>
+                <strong>Copyright &copy; 2022 <a href="https://www.rbservicios.cl">Reny Blanco</a>.</strong> Derechos Reservados.
+            </footer>
+
+        </div> <!-- ./wrapper -->
+
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.2.min.js" integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
+        <!-- Bootstrap -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <!-- overlayScrollbars -->
+        <script src="js/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+        <!-- Bootstrap Accesorios JS -->
+        <script src="js/bootstrap.min.js"></script>
+    </body>
+</html>

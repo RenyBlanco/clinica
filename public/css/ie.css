@@ -1,0 +1,23 @@
+@import url(//fonts.googleapis.com/css?family=Roboto:400);
+@import url(//fonts.googleapis.com/css?family=Roboto:700);
+#back-top { behavior:url(js/PIE.htc);}
+
+a.magnifier2:hover .zoom{
+	display: block;
+}
+a.magnifier2 .zoom, .bottom_p{
+	display: none;
+}
+body{
+	min-width: 1143px;
+}
+.box-2 .img_container img{
+	position: relative;
+	z-index: 1;
+}
+
+
+#contact-form input,
+#contact-form textarea {
+	overflow: hidden;
+}

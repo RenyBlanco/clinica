@@ -1,0 +1,70 @@
+<%- include('includes/header', {tituloweb: 'Contacto'}); %>
+
+<!--Pa Arriba-->
+<div id="back-top">Ir a Arriba</div>
+<div class="main">
+    <div class="div-content">  
+        <div class="top_section">
+            <div class="container_12">
+                <div class="grid_12">
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--header -->
+    <%- include('includes/menu2'); %>
+
+    <!-- Contenido -->
+    <div class="container_12">
+        <div class="grid_12">
+            <div class="grid_5 alpha">
+                <h2>Ubicanos</h2>
+                <figure class="img_inner">
+                    <iframe src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Cam.+del+Sol+800,+Quilpu%C3%A9,+Valpara%C3%ADso,+Chile&amp;aq=0&amp;sll=-33.0338673,-71.485933,17&amp;sspn=-33.0338719!4d-71.4814483&amp;ie=UTF8&amp;hq=&amp;hnear=Quilpu%C3%A9,+Quilpue,+Valpara%C3%ADso&amp;ll=-33.0482707!4d-71.4408752&amp;spn=0.01628,0.025663&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe>
+                </figure>
+                <address>	
+                    <dl>
+                        <dt>Camino del sol,<br>Paso Hondo, Quilpué.</dt>
+                        <dd><span>Telephone:</span>+56 2 2833 4015</dd>
+                        <dd><span>Cel:</span>+56 9 9556 8554</dd>
+                        <dd>Correo: <a href="#" class="link6">correo@dominio.cl</a></dd>
+                    </dl>
+                </address>
+            </div>
+                
+            <div class="grid_7 omega">
+                <h2>Ponte en Contacto</h2>
+                <form id="contact-form">
+                    <div class="success-message">Formulario Enviado! <strong>Pronto estaremos en contacto.</strong></div>
+                    <div class="wrapper">
+                        <label class="name">
+                            <input type="text" placeholder="Nombre:" data-constraints="@Required @JustLetters" />
+                            <span class="empty-message">*El nombre es requerido.</span>
+                            <span class="error-message">*No es nombre válido.</span>
+                        </label>
+                        <label class="email">
+                            <input type="text" placeholder="Correo:" data-constraints="@Required @Email" />
+                            <span class="empty-message">*El correo es requerido.</span>
+                            <span class="error-message">*No es un correo válido.</span>
+                        </label>
+                        <label class="phone">
+                            <input type="text" placeholder="Telefono:" data-constraints="@Required @JustNumbers"/>
+                            <span class="empty-message">*Por favor ingrese un teléfono.</span>
+                            <span class="error-message">*No es un teléfono válido.</span>
+                        </label>
+                    </div>
+                    <label class="message">
+                        <textarea placeholder="Mensaje:" data-constraints='@Required @Length(min=20,max=999999)'></textarea>
+                        <span class="empty-message">*Debe incluir un mensaje.</span>
+                        <span class="error-message">*El mensaje es muy corto.</span>
+                    </label>
+                    <div  class="form_btns">
+                        <a href="#" data-type="submit" class="more_btn">Enviar</a>
+                    </div>  
+                </form>
+            </div>
+        </div>
+    </div>
+<%- include('includes/footer'); %>
