@@ -2,7 +2,7 @@
                 <div class="float-right d-none d-sm-block">
                     <b>Version</b> 1.0.0
                 </div>
-                <strong>Copyright &copy; 2022 <a href="https://www.rbservicios.cl">Reny Blanco</a>.</strong> Derechos Reservados.
+                <strong>Copyright &copy; 2023 <a href="https://www.rbservicios.cl">Reny Blanco</a>.</strong> Derechos Reservados.
             </footer>
 
         </div> <!-- ./wrapper -->
@@ -11,9 +11,104 @@
         <script src="https://code.jquery.com/jquery-3.6.2.min.js" integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
         <!-- Bootstrap -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <!-- overlayScrollbars -->
+        
+		<!-- overlayScrollbars -->
         <script src="js/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+		
+		<!-- Toastr -->
+		<script src="js/toastr/toastr.min.js"></script>
+		
+		<!-- DataTables  & Plugins -->
+		<script src="js/datatables/jquery.dataTables.min.js"></script>
+		<script src="js/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+		<script src="js/datatables-responsive/js/dataTables.responsive.min.js"></script>
+		<script src="js/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
+		<!-- jquery-validation -->
+		<script src="js/jquery-validation/jquery.validate.min.js" ></script>
+		<script src="js/jquery-validation/additional-methods.min.js" ></script>
+		<script src="js/jquery-validation/localization/messages_es_AR.js"></script>
+
+		<!-- Select2 -->
+		<script src="js/select2/js/select2.full.min.js"></script>
+
         <!-- Bootstrap Accesorios JS -->
         <script src="js/bootstrap.min.js"></script>
-    </body>
-</html>
+
+        <script type="text/javascript">
+            // DataTables Config
+			$('#example2').DataTable({
+				'paging': true,
+				'lengthChange': true,
+				'searching': true,
+				'ordering': true,
+				'info': true,
+				'autoWidth': false,
+				language: {
+					"decimal": "",
+					"emptyTable": "No hay datos",
+					"info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+					"infoEmpty": "Mostrando 0 a 0 de 0 registros",
+					"infoFiltered": "(Filtro de _MAX_ total registros)",
+					"infoPostFix": "",
+					"thousands": ",",
+					"lengthMenu": "Mostrar _MENU_ registros",
+					"loadingRecords": "Cargando...",
+					"processing": "Procesando...",
+					"search": "Buscar:",
+					"zeroRecords": "No se encontraron coincidencias",
+					"paginate": {
+						"first": "Primero",
+						"last": "Ultimo",
+						"next": "Próximo",
+						"previous": "Anterior"
+					},
+					"aria": {
+						"sortAscending": ": Activar orden de columna ascendente",
+						"sortDescending": ": Activar orden de columna desendente"
+					}
+				},
+			});
+        </script>
+		<script type="text/javascript">
+			// Validacion de entrada de campos en los form
+			var APP = function () {
+				return {
+					validacionGeneral: function (id, reglas, mensajes) {
+						const formulario = $('#'+id);
+						formulario.validate({
+							rules: reglas,
+							messages: mensajes,
+							errorElement: 'div',
+							errorClass: 'invalid-feedback',
+							focusInvalid: false,
+							ignore: "",
+							highlight: function (element, errorClass, validClass) {
+								$(element).addClass('is-invalid');
+							},
+							unhighlight: function (element) {
+								$(element).removeClass('is-invalid');
+							},
+							success: function (element) {
+								$(element).removeClass('is-invalid');
+							},
+							errorPlacement: function (error, element) {
+								if (element.closest('.bootsrap-select').length > 0) {
+									element.closest('.bootsrap-select').find('.bs-placeholder').after(error);
+								} else if ($(element).is('select') && element.hasClass('select2-hidden-accessible')) {
+									element.next().after(error);
+								} else {
+									error.insertAfter(element);
+								}
+							},
+							invalidHandler: function (event, validator) {
+
+							},
+							submitHandler: function (form) {
+								return true;
+							}
+						});
+					}
+				}
+			}();
+		</script>
