@@ -56,6 +56,11 @@
                                                 <a href="/" class="small text-muted">Regresar</a>
                                             </div>
                                         </div>
+                                        <% if (error) { %>
+                                            <div class="invalid-feedback">
+                                                <span class="error"><%= error %></span>
+                                            </div>
+                                        <% } %>
                                     </form>
                                 </div>
                             </div>
@@ -65,36 +70,63 @@
             </div>
         </div>
     </section>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.2.min.js" integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- jquery-validation -->
+    <script src="js/jquery-validation/jquery.validate.min.js" ></script>
+    <script src="js/jquery-validation/additional-methods.min.js" ></script>
+    <script src="js/jquery-validation/localization/messages_es_AR.js"></script>
+
     <script>
-        (function () {
-        'use strict'
-
-        var forms = document.querySelectorAll('.needs-validation')
-
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-            form.addEventListener('submit', function (event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
+        $("#frmLogin").validate({
+            rules: {
+                usuario: {
+                    required: true,
+                    email: true,
+                    maxlength: 30
+                },
+                clave: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 12
                 }
-
-                const clave = document.getElementById("clave");
-                const claveError = document.querySelector('#clave + span.error');
-
-                if (clave.tooShort || clave.tooLong) {
-                    claveError.textContent = 'la clave debe tener entre 6 y 12 caracteres.';
-                    console.error('Aqui');
-                    // Establece el estilo apropiado
-                    claveError.className = 'error active';
-                    event.preventDefault()
+            },
+            messages: {
+                usuario: {
+                    required : "El usuario no debe estar en blanco",
+                    maxlength: "el correo excede el máximo de caracteres permitidos",
+                    email: "Debe ingresar un correo válido y registrado!"
+                },
+                clave: {
+                    required: "La clave es requerida",
+                    minlength : "No cumple con el mínimo de caracteres",
+                    maxlength: "Excede la cantidad máxima de caracteres"
                 }
-                form.classList.add('was-validated')
-            }, false)
-            })
-        })()
+            },
+            errorElement: 'div',
+            errorClass: 'invalid-feedback',
+            focusInvalid: false,
+            ignore: "",
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element) {
+                $(element).removeClass('is-invalid');
+            },
+            success: function (element) {
+                $(element).removeClass('is-invalid');
+            },
+            errorPlacement: function (error, element) {
+                if (element.closest('.bootsrap-select').length > 0) {
+                    element.closest('.bootsrap-select').find('.bs-placeholder').after(error);
+                } else if ($(element).is('select') && element.hasClass('select2-hidden-accessible')) {
+                    element.next().after(error);
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
     </script>
-
 </body>
 </html>

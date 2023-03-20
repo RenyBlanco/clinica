@@ -4,15 +4,16 @@ const bcrypt = require('bcryptjs');
 const db = require('../database/db');
 
 rutas.get("/login", (req, res) => {
-    res.render("login");
+    let error
+    res.render("login", {error: error});
 });
 
-rutas.post("/auth", async (req, res) => {
+rutas.post("/auth", (req, res) => {
     const { usuario, clave } = req.body;
     if (usuario && clave) {
         db.query('SELECT * FROM usuarios WHERE usuario = ?', [usuario], (err, result) =>{
             if(result.length == 0 || !(bcrypt.compareSync(clave, result[0].clave))){
-                res.send('Usuario o Password incorrecto')
+                res.render('login', { error: 'Usuario o clave incorrecta!' })
             }else{
                 res.render('negocio');
             }

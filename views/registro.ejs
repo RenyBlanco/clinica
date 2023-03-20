@@ -1,4 +1,3 @@
-<!---- Encabezado ------>
 <%- include('includes/header2'); %>
 <body class="hold-transition sidebar-mini layout-fixed">
     <!-- Site wrapper -->
@@ -82,7 +81,6 @@
         
         <script type="text/javascript">
             $(document).ready(function () {
-
                 APP.validacionGeneral('frmRegistro');
                 
                 $("#rut").on('change', function() {
@@ -93,7 +91,6 @@
                     let contador = 0;
                     let suma = 0;
                     let inicio = indice-1;
-
                     for(let i = inicio; i >= 0; i--) {
                         suma += (parseInt(rut[i])*(2+contador));
                         if(contador < 5){
@@ -107,7 +104,6 @@
                     let diferencia = suma-(valor*11);
                     let verifica = 11-diferencia;
                     verifica === 10 ? verificador = 'K' : verificador = verifica; 
-
                     if(digito != verificador) {
                         toastr.error('Rut Invalido');
                         $("#rut").val('');
