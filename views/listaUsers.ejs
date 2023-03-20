@@ -12,17 +12,7 @@
         <div class="content-wrapper">
             <section class="content-header">
                 <div class="container-fluid">
-                    <% if (mensaje) { %>
-                        <div class="row mb-2">
-                            <div class="col-lg-12">
-                                <div class="alert alert-<%= tipo %> alert-dismissible">
-                                    <button type="button" class="close" data-bs-dismiss="alert" aria-hidden="true">&times;</button>
-                                    <h5><i class="icon fas fa-ban"></i> Atención!</h5>
-                                    <strong><%= mensaje %></strong>
-                                </div>
-                            </div>
-                        </div>
-                    <% } %>
+                    <%- include('includes/mensaje'); %>
                 </div>
             </section>
             <section class="content">
@@ -35,7 +25,7 @@
                                         <h3 style="color: gray;"><i class="fa fa-users"></i> Usuarios</h3>
                                     </div>
                                     <div class="float-right">
-                                        <a href="/registro" 
+                                        <a href="/usuarios/registro" 
                                         class="btn btn-outline-primary">
                                             <i class="fa fa-plus-circle"></i> Nuevo Usuario
                                         </a>
@@ -53,8 +43,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <% if (usuarios) { %>
-                                                <% usuarios.forEach(function(user){ %>
+                                            <% if (listado) { %>
+                                                <% listado.forEach(function(user){ %>
                                                     <tr>
                                                         <td><%= user.nombre %></td>
                                                         <td><%= user.usuario %></td>
@@ -69,7 +59,7 @@
                                                         <td>
                                                             <div class="row">
                                                                 <div class="col-auto">
-                                                                    <form method="post" action="/editarUsuario">
+                                                                    <form method="post" action="/usuarios/editar">
                                                                         <input name="id" type="hidden" value="<%= user.id %>">
                                                                         <button type="submit" class="btn btn-warning btn-sm" title="Editar">
                                                                             <i class="fa-solid fa-pen-to-square"></i>
@@ -77,7 +67,7 @@
                                                                     </form>
                                                                 </div>
                                                                 <div class="col-auto">
-                                                                    <a href="/" class="btn btn-danger btn-sm" title="Borrar">
+                                                                    <a href="/usuarios/delete/?id=<%= user.id %>" class="btn btn-danger btn-sm" title="Borrar">
                                                                     <i class="fa-regular fa-trash-can"></i>
                                                                     </a>
                                                                 </div>
