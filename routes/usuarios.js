@@ -3,28 +3,22 @@ const rutas = express.Router();
 const helpers = require('../libs/helpers');
 const db = require('../database/db');
 
-rutas.get('/', (req, res) => {
-    let lista = db.query('SELECT u.id, u.nombre, u.usuario, u.activo, r.rol FROM usuarios u INNER JOIN roles r ON u.rol_id = r.id');
-    // let lista = [
-    //     {
-    //         nombre : 'Rey',
-    //         usuario : 'rey@rey.com',
-    //         rol : 'Admin',
-    //         activo : 1
-    //     },
-    //     {
-    //         nombre : 'Gaby',
-    //         usuario : 'rey@rey.com',
-    //         rol : 'Otro',
-    //         activo : 1
-    //     }
-    // ]
-    res.render('listaUsers', {listado: lista});
+rutas.get('/usuarios', (req, res) => {
+    db.query('SELECT u.id, u.nombre, u.usuario, u.activo, r.rol FROM usuarios u INNER JOIN roles r ON u.rol_id = r.id', (err, result) =>{
+        if(result.length == 0){
+            res.send('Error')
+        }else{
+            res.render('listaUsers', {listado: result});
+        }
+    });
 });
 
 rutas.get('/registro', (req, res) => {
-    const roles = db.query('SELECT * FROM roles');
-    res.render('registro', {roles: roles});
+    db.query('SELECT * FROM roles', (err, result) =>{
+        if(result.length !== 0){
+            res.render('registro', {roles: result});
+        }
+    });
 });
 
 rutas.post('/registro', async (req, res) => {
@@ -59,7 +53,7 @@ rutas.get('/delete/:id', async (req, res) => {
 rutas.get('/editar/:id', async (req, res) => {
     const { id } = req.params;
     const link = await db.query('SELECT * FROM usuarios WHERE id = ?', [id]);
-    res.render('usuarios/editar', {link: link[0]});
+    res.render('editar', {link: link[0]});
 });
 
 rutas.post('/editar/:id', async (req, res) => {

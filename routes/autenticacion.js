@@ -1,5 +1,7 @@
 const express = require("express");
 const rutas = express.Router();
+const bcrypt = require('bcryptjs');
+const db = require('../database/db');
 
 rutas.get("/login", (req, res) => {
     res.render("login");

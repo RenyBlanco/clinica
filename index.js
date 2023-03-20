@@ -4,7 +4,7 @@ const path    = require("path");
 const { nextTick } = require('process');
 const dotenv = require('dotenv');
 const sesion = require ('express-session');
-const bcrypt = require('bcryptjs');
+
 const sesionMysql = require('express-mysql-session')(sesion);
 const flash = require('connect-flash');
 
@@ -50,7 +50,7 @@ app.use((req, res, next)=>{
 // Rutas
 app.use(require('./routes'));
 app.use(require('./routes/autenticacion'));
-app.use('/usuarios', require('./routes/usuarios'));
+app.use(require('./routes/usuarios'));
 
 // Arrancando Servidor
 app.listen(app.get('port'), () => {
