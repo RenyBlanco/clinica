@@ -5,8 +5,8 @@ const { nextTick } = require('process');
 const dotenv = require('dotenv');
 const sesion = require ('express-session');
 
-const sesionMysql = require('express-mysql-session')(sesion);
 const flash = require('connect-flash');
+const sesionMysql = require('express-mysql-session')(sesion);
 
 
 const { database } = require('./keys');
@@ -37,15 +37,16 @@ app.use(sesion({
     saveUninitialized: false,
     store: new sesionMysql(database)
 }));
+
 app.use(flash());
 
 // Variables globales
-app.use((req, res, next)=>{
-    app.locals.mensaje = req.flash('mensaje');
-    app.locals.tipo = req.flash('tipo');
-    app.locals.usuario = req.usuario;
-    next();
-});
+// app.use((req, res, next)=>{
+//     app.locals.tipo = req.flash('tipo');
+//     app.locals.mensaje = req.flash('mensaje');
+//     app.locals.usuario = req.usuario;
+//     next();
+// });
 
 // Rutas
 app.use(require('./routes'));

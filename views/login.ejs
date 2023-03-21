@@ -29,9 +29,14 @@
                                             <img src="images/LogoB.png"
                                             alt="login form" class="img-thumbnail" style="border-radius: 1rem; width: 250px;" />
                                         </div>
-                        
-                                        <h5 class="fw-normal mb-2 pb-2" style="letter-spacing: 1px;">Ingresa a tu cuenta</h5>
-                        
+                                        <% if (error) { %>
+                                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                <strong><%= error %></strong>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                              </div>
+                                        <% }else{ %>
+                                            <h5 class="fw-normal mb-2 pb-2" style="letter-spacing: 1px;">Ingresa a tu cuenta</h5>
+                                        <% } %>
                                         <div class="form-outline mb-2">
                                             <label class="form-label" for="usuario">Correo</label>
                                             <input type="email" name="usuario" id="correo" class="form-control" required autofocus/>
@@ -56,11 +61,7 @@
                                                 <a href="/" class="small text-muted">Regresar</a>
                                             </div>
                                         </div>
-                                        <% if (error) { %>
-                                            <div class="invalid-feedback">
-                                                <span class="error"><%= error %></span>
-                                            </div>
-                                        <% } %>
+                                        
                                     </form>
                                 </div>
                             </div>

@@ -50,8 +50,8 @@
                                             <label for="rol_id">Tipo de Usuario</label>
                                             <select required class="custom-select" name="rol_id">
                                                 <option value="0">Seleccione un rol</option>
-                                                <% roles.forEach(function(rol){ %>
-                                                    <option value="<%= rol.id %>"><%= rol.rol %></option>
+                                                <% roles.forEach(function(rol) { %>
+                                                    <option value="<%= rol.idroles %>"><%= rol.rol %></option>
                                                 <% }); %>
                                             </select>
                                         </div>

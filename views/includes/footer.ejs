@@ -69,16 +69,16 @@
 <script type="text/javascript">
 
 function myFocus(element){
-if (element.value == element.defaultValue){
-    element.focus();
-    element.value = '';
-}
+    if (element.value == element.defaultValue){
+        element.focus();
+        element.value = '';
+    }
 }
 function myBlur(element){
-if (element.value == ''){
-    element.blur();
-    element.value = element.defaultValue;
-}
+    if (element.value == ''){
+        element.blur();
+        element.value = element.defaultValue;
+    }
 }
 </script>
 </body>
