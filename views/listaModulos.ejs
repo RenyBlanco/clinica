@@ -1,0 +1,178 @@
+<%- include('includes/header2'); %>
+
+        <div class="content-wrapper">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <% if (mensaje.length !== 0) { %>
+                        <div class="row mb-2">
+                            <div class="col-lg-12">
+                                <div class="alert alert-<%= tipo %> alert-dismissible">
+                                    <button type="button" class="close" data-bs-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <h5> Atención <i class="fa-solid fa-circle-exclamation"></i></h5>
+                                    <strong><%= mensaje %></strong>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            </section>
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="float-left">
+                                        <h3 style="color: gray;"><i class="fa-solid fa-folder-tree"></i> Modulos</h3>
+                                    </div>
+                                    <div class="float-right">
+                                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalMod">
+                                            <i class="fa fa-plus-circle"></i> Nuevo Modulo
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table id="example2" class="table table-hover table-bordered">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (modulos) { %>
+                                                <% modulos.forEach(function(mod){ %>
+                                                    <tr>
+                                                        <td><%= mod.modulo %></td>
+                                                        <td style="text-align:center;">
+                                                            <% if (mod.estado == 0) { %>
+                                                                <span class="badge badge-danger">Inactivo</span>
+                                                            <% } else { %>
+                                                                <span class="badge badge-success">Activo</span>
+                                                            <% } %>
+                                                        </td>
+                                                        <td>
+                                                            <div class="text-center">
+                                                                <button type="button" class="btn btn-warning btn-sm" id="m_<%= mod.idmodulos %>" data-modulo="<%= mod.modulo %>" data-estado="<%= mod.estado %>" 
+                                                                    onclick="edita('<%= mod.idmodulos %>')" title="Editar">
+                                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                                </button>
+                                                                <a href="/eliminaMod/<%= mod.idmodulos %>" class="btn btn-danger btn-sm">
+                                                                    <i class="fa-regular fa-trash-can" title="Borrar"></i>
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <% }); %>
+                                            <% } %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div> <!-- /.card -->
+                        </div> <!-- /.col-12 -->
+                    </div> <!-- /.row -->
+                </div> <!-- /.container-fluid -->
+            </section>
+        </div>
+        <!-- /.content -->
+        <%- include('includes/footer2'); %> 
+        <script>
+            $(document).ready(function () {
+                APP.validacionGeneral('frmModulo');
+            });
+        </script>
+        <script>
+            function edita(id) {
+                let mod = $('#m_'+id).data('modulo');
+                let estado = $('#m_'+id).data('estado');
+                var myModal = new bootstrap.Modal(document.getElementById('editarModal'));
+                myModal.show();
+                $('#edId').val(id);
+                $('#edMod').val(mod);
+                $('#edEstado').val(estado);
+            }
+        </script>
+        
+    </body>
+</html>
+
+<!-- Modal Rol Nuevo -->
+<div class="modal fade" id="modalMod" role="dialog" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="modalModLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalModLabel"><i class="fa-solid fa-diagram-project"></i> Nuevo Modulo </h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm">
+                        <form method="post" action="/addModulos" id="frmModulo">
+                            <div class="form-group">
+                                <label for="rol">Nombre del Modulo</label>
+                                <input type="text" class="form-control" autofocus name="modulo" autocomplete="off" required
+                                    placeholder="Nombre del rol">
+                            </div>
+                            <div class="form-group">
+                                <label for="estado">Estado</label>
+                                <select required class="form-control" name="estado">
+                                    <option value="1">Activo</option>
+                                    <option value="0">Inactivo</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>
+                                Guardar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Volver</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Rol Editar -->
+<div class="modal fade" id="editarModal" role="dialog" tabindex="-1" aria-labelledby="editarLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarLabel"><i class="fa-regular fa-pen-to-square"></i> Editar Modulo </h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm">
+                        <form method="post" action="/editarMod" id="frmModulo">
+                            <input type="hidden" id="edId" name="idmodulos">
+                            <div class="form-group">
+                                <label for="modulo">Nombre del Modulo</label>
+                                <input type="text" class="form-control" id="edMod" name="modulo" autocomplete="off" 
+                                autofocus required>
+                            </div>
+                            <div class="form-group">
+                                <label for="estado">Estado</label>
+                                <select required class="form-control" id="edEstado" name="estado">
+                                    <option value="1">Activo</option>
+                                    <option value="0">Inactivo</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>
+                                Actualizar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Volver</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

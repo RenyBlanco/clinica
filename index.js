@@ -40,19 +40,12 @@ app.use(sesion({
 
 app.use(flash());
 
-// Variables globales
-// app.use((req, res, next)=>{
-//     app.locals.tipo = req.flash('tipo');
-//     app.locals.mensaje = req.flash('mensaje');
-//     app.locals.usuario = req.usuario;
-//     next();
-// });
-
 // Rutas
 app.use(require('./routes'));
 app.use(require('./routes/autenticacion'));
 app.use(require('./routes/usuarios'));
 app.use(require('./routes/roles'));
+app.use(require('./routes/modulos'));
 
 // Arrancando Servidor
 app.listen(app.get('port'), () => {
