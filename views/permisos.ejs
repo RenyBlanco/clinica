@@ -1,0 +1,124 @@
+<%- include('includes/header2'); %>
+
+        <div class="content-wrapper">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        
+                    </div>
+                </div>
+            </section>
+            
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="float-left">
+                                        <h3><i class="fa-regular fa-address-card"></i> Permisos de <%= rol.rol %></h3>
+                                    </div>
+                                    <div class="float-right">
+                                    <a href="/roles" class="btn btn-outline-success">
+                                        <i class="fa fa-reply" aria-hidden="true"></i> Regresar al listado
+                                    </a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <form method="post" action="/guardarPermisos">
+                                        <input type="hidden" id="idRrol" name="idRol" value="<%= rol.idroles %>" required="">
+                                        <div class="tile-body">
+                                            <table id="example" class="table table-hover">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th>Modulo</th>
+                                                        <th>Registrar</th>
+                                                        <th>Actualizar</th>
+                                                        <th>Borrar</th>
+                                                        <th>Revisar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    foreach ($permisos as $permiso) { 
+                                                        $wCheck = $permiso['ins']  == 1 ? " checked " : "";
+                                                        $uCheck = $permiso['updt'] == 1 ? " checked " : "";
+                                                        $dCheck = $permiso['dlt']  == 1 ? " checked " : "";
+                                                        $rCheck = $permiso['vw']   == 1 ? " checked " : ""; ?>
+                                                        <tr>
+                                                            <td>
+                                                                <input type="hidden" name="modulos[<?= $permiso['id']?>][id_modulo]" value="<?= $permiso['id']?>">
+                                                                <?= $permiso['modulo'] ?></td>
+                                                            <td>
+                                                                <input type="checkbox" name="modulos[<?= $permiso['id']?>][ins]" <?= $wCheck ?> data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                                            </td>
+                                                            <td>
+                                                                <input type="checkbox" name="modulos[<?= $permiso['id']?>][updt]" <?= $uCheck ?> data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                                            </td>
+                                                            <td>
+                                                                <input type="checkbox" name="modulos[<?= $permiso['id']?>][dlt]" <?= $dCheck ?> data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                                            </td>
+                                                            <td>
+                                                                <input type="checkbox" name="modulos[<?= $permiso['id']?>][vw]" <?= $rCheck ?> data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                                            </td>
+                                                        </tr>
+                                                    <% } %>
+                                                </tbody>
+                                            </table>
+                                        </div> <!-- /.tile-body -->
+                                        <div class="text-center">
+                                            <button class="btn btn-success" type="submit">
+                                                <i class="fa fa-fw fa-lg fa-check-circle"></i> Guardar
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- /.row -->
+                </div> <!-- /.container-fluid -->
+            </section> <!-- /.content -->
+        </div> <!-- /.content-wrapper -->
+
+        <%- include('includes/footer2'); %> 
+
+        <script type="text/javascript">
+            // DataTables Config
+            $('#example').DataTable({
+                'paging': true,
+                'lengthChange': true,
+                'searching': false,
+                'ordering': false,
+                'info': true,
+                'autoWidth': false,
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay datos",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+                    "infoFiltered": "(Filtro de _MAX_ total registros)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ registros",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "No se encontraron coincidencias",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Próximo",
+                        "previous": "Anterior"
+                    },
+                    "aria": {
+                        "sortAscending": ": Activar orden de columna ascendente",
+                        "sortDescending": ": Activar orden de columna desendente"
+                    }
+                }
+            });
+
+            $("input[data-bootstrap-switch]").each(function(){
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
+            })
+        </script>
+    </body>
+</html>

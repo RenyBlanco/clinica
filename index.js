@@ -52,6 +52,7 @@ app.use(flash());
 app.use(require('./routes'));
 app.use(require('./routes/autenticacion'));
 app.use(require('./routes/usuarios'));
+app.use(require('./routes/roles'));
 
 // Arrancando Servidor
 app.listen(app.get('port'), () => {
