@@ -30,11 +30,28 @@ rutas.post('/addRoles', async (req, res) => {
 });
 
 rutas.post('/permisos', (req, res) => {
-    const { id } = req.params;
-    db.query('SELECT * FROM roles WHERE id = ?', [id], (err, result) =>{
-        res.render('editRol', {role: result[0]});
+    const { id } = req.body;
+    let rol = [];
+    db.query('SELECT * FROM roles WHERE idroles = ?', [id], (err, result) =>{
+        rol = result[0];
     });
+    db.query('SELECT m.idmodulos, m.modulo, p.rol_id, p.insertar, p.modificar, p.borrar, p.ver FROM permisos p INNER JOIN modulos m ON p.modulo_id = m.idmodulos WHERE p.rol_id = ?', [id], (err, result) => {
+        res.render('permisos', {permisos: result, rol: rol});
+    });
+    
 });
+
+rutas.post('/guardarPermisos', (req, res) => {
+    const { id } = req.body;
+    let rol = [];
+    db.query('SELECT * FROM roles WHERE idroles = ?', [id], (err, result) =>{
+        rol = result[0];
+    });
+    db.query('SELECT m.idmodulos, m.modulo, p.rol_id, p.insertar, p.modificar, p.borrar, p.ver FROM permisos p INNER JOIN modulos m ON p.modulo_id = m.idmodulos WHERE p.rol_id = ?', [id], (err, result) => {
+        res.render('permisos', {permisos: result, rol: rol});
+    });
+    
+})
 
 rutas.post('/editarRol', (req, res) => {
     const { idroles, rol, estado } = req.body;

@@ -39,29 +39,29 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    foreach ($permisos as $permiso) { 
-                                                        $wCheck = $permiso['ins']  == 1 ? " checked " : "";
-                                                        $uCheck = $permiso['updt'] == 1 ? " checked " : "";
-                                                        $dCheck = $permiso['dlt']  == 1 ? " checked " : "";
-                                                        $rCheck = $permiso['vw']   == 1 ? " checked " : ""; ?>
+                                                    <% permisos.forEach(function(perm){ %>
+                                                        <% wCheck = perm.insertar  == 1 ? " checked " : ""; %>
+                                                        <% uCheck = perm.modificar == 1 ? " checked " : ""; %>
+                                                        <% dCheck = perm.borrar  == 1 ? " checked " : ""; %>
+                                                        <% rCheck = perm.ver   == 1 ? " checked " : ""; %>
                                                         <tr>
                                                             <td>
-                                                                <input type="hidden" name="modulos[<?= $permiso['id']?>][id_modulo]" value="<?= $permiso['id']?>">
-                                                                <?= $permiso['modulo'] ?></td>
+                                                                <input type="hidden" name="modulos[<%= perm.idpermisos %>][modulo_id]" value="<%= perm.idpermisos %>">
+                                                                <%= perm.modulo %></td>
                                                             <td>
-                                                                <input type="checkbox" name="modulos[<?= $permiso['id']?>][ins]" <?= $wCheck ?> data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                                                <input type="checkbox" name="modulos[<%= perm.idpermisos %>][insertar]" <%= wCheck %> data-bootstrap-switch data-off-color="danger" data-on-color="success">
                                                             </td>
                                                             <td>
-                                                                <input type="checkbox" name="modulos[<?= $permiso['id']?>][updt]" <?= $uCheck ?> data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                                                <input type="checkbox" name="modulos[<%= perm.idpermisos %>][modificar]" <%= uCheck %> data-bootstrap-switch data-off-color="danger" data-on-color="success">
                                                             </td>
                                                             <td>
-                                                                <input type="checkbox" name="modulos[<?= $permiso['id']?>][dlt]" <?= $dCheck ?> data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                                                <input type="checkbox" name="modulos[<%= perm.idpermisos %>][borrar]" <%= dCheck %> data-bootstrap-switch data-off-color="danger" data-on-color="success">
                                                             </td>
                                                             <td>
-                                                                <input type="checkbox" name="modulos[<?= $permiso['id']?>][vw]" <?= $rCheck ?> data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                                                <input type="checkbox" name="modulos[<%= perm.idpermisos %>][ver]" <%= rCheck %> data-bootstrap-switch data-off-color="danger" data-on-color="success">
                                                             </td>
                                                         </tr>
-                                                    <% } %>
+                                                    <% }); %>
                                                 </tbody>
                                             </table>
                                         </div> <!-- /.tile-body -->
