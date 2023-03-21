@@ -41,31 +41,25 @@ rutas.post('/registro', async (req, res) => {
     });
 });
 
-rutas.get('/delete/:id', (req, res) => {
-    const { id } = req.params;
-    db.query('DELETE FROM usuarios WHERE id = ?', [id]);
-    req.flash('msg', 'Enlace borrado con éxito');
-    res.redirect('/usuarios');
-});
-
-rutas.get('/editar/:id', (req, res) => {
-    const { id } = req.params;
+rutas.post('/editaUsuario', (req, res) => {
+    const { id } = req.body;
     let roles = [];
-    db.query('SELECT * FROM roles', (err, result) =>{
-        roles = result;
+    db.query('SELECT * FROM roles', (err, lista) =>{
+        roles = lista;
     });
     db.query('SELECT * FROM usuarios WHERE id = ?', [id], (err, result) =>{
-        res.render('editaUser', {user: result, roles : roles});
+        res.render('editaUser', {user: result[0], roles: roles});
     });
 });
 
-rutas.post('/editar/:id', (req, res) => {
-    const { id } = req.params;
-    const { nombre, correo, rol_id } = req.body;
+rutas.post('/editar', (req, res) => {
+    const { id } = req.body;
+    const { nombre, correo, rol_id, activo } = req.body;
     let nuevo = {
         nombre: nombre,
         usuario: correo,
-        rol_id: rol_id
+        rol_id: rol_id,
+        activo: activo
     }
     db.query('UPDATE usuarios SET ? WHERE id = ?', [nuevo, id], (err, result) =>{
         if(err){
@@ -73,8 +67,24 @@ rutas.post('/editar/:id', (req, res) => {
             req.flash('msg', 'Algo ocurrió, usuario NO actualizado!');
             res.redirect('/usuarios');
         }else{
-            req.flash('tipo', 'success')
+            req.flash('tipo', 'success');
             req.flash('msg', 'Usuario actualizado con éxito');
+            res.redirect('/usuarios');
+        }
+    });
+});
+
+rutas.get('/elimina/:id', (req, res) => {
+    const {id}  = req.params;
+    console.log('ID -> ', id);
+    db.query('UPDATE usuarios SET activo = 0 WHERE id = ?', [id], (err, result) => {
+        if(err) {
+            req.flash('tipo', 'danger');
+            req.flash('msg', 'Algo ocurrió, usuario NO pudo ser eliminado!');
+            res.redirect('/usuarios');
+        }else{
+            req.flash('tipo', 'success');
+            req.flash('msg', 'Usuario eliminado con éxito');
             res.redirect('/usuarios');
         }
     });

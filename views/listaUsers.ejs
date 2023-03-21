@@ -1,9 +1,4 @@
 <%- include('includes/header2'); %>
-<body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper">
-        <%- include('includes/navbar'); %>
-        
-        <%- include('includes/sidebar'); %>
 
         <div class="content-wrapper">
             <section class="content-header">
@@ -65,19 +60,17 @@
                                                         <td>
                                                             <div class="row">
                                                                 <div class="col-auto">
-                                                                    <a href="/editar/id=<%= user.id %>" class="btn btn-warning btn-sm" title="Editar">
-                                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                                    </a>
-                                                                    <!-- <form method="post" action="/editar">
+                                                                    <form method="post" action="/editaUsuario">
                                                                         <input name="id" type="hidden" value="<%= user.id %>">
                                                                         <button type="submit" class="btn btn-warning btn-sm" title="Editar">
-                                                                            <i class="fa-solid fa-pen-to-square"></i>
+                                                                            <i class="fa-solid fa-user-pen"></i>
                                                                         </button>
-                                                                    </form> -->
+                                                                    </form>
+                                                                    
                                                                 </div>
                                                                 <div class="col-auto">
-                                                                    <a href="/delete/id=<%= user.id %>" class="btn btn-danger btn-sm" title="Borrar">
-                                                                    <i class="fa-regular fa-trash-can"></i>
+                                                                    <a href="/elimina/<%= user.id %>" class="btn btn-danger btn-sm" title="Elimina">
+                                                                        <i class="fa-solid fa-user-xmark"></i>
                                                                     </a>
                                                                 </div>
                                                             </div>
