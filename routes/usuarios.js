@@ -14,7 +14,7 @@ rutas.get('/usuarios', (req, res) => {
 rutas.get('/registro', (req, res) => {
     db.query('SELECT * FROM roles', (err, result) =>{
         if(result.length !== 0){
-            res.render('registro', {roles: result });
+            res.render('addUser', {roles: result });
         }
     });
 });
@@ -44,26 +44,40 @@ rutas.post('/registro', async (req, res) => {
 rutas.get('/delete/:id', (req, res) => {
     const { id } = req.params;
     db.query('DELETE FROM usuarios WHERE id = ?', [id]);
-    req.flash('exito', 'Enlace borrado con éxito');
+    req.flash('msg', 'Enlace borrado con éxito');
     res.redirect('/usuarios');
 });
 
 rutas.get('/editar/:id', (req, res) => {
     const { id } = req.params;
-    db.query('SELECT * FROM usuarios WHERE id = ?', [id]);
-    res.render('editar', {link: link[0]});
+    let roles = [];
+    db.query('SELECT * FROM roles', (err, result) =>{
+        roles = result;
+    });
+    db.query('SELECT * FROM usuarios WHERE id = ?', [id], (err, result) =>{
+        res.render('editaUser', {user: result, roles : roles});
+    });
 });
 
 rutas.post('/editar/:id', (req, res) => {
     const { id } = req.params;
-    const { titulo, url, descrip } = req.body;
-    const updated = {
-        titulo,
-        url,
-        descrip
-    };
-    db.query('UPDATE usuarios SET ? WHERE id = ?', [updated, id]);
-    req.flash('exito', 'Enlace actualizado con éxito');
-    res.redirect('/usuarios');
+    const { nombre, correo, rol_id } = req.body;
+    let nuevo = {
+        nombre: nombre,
+        usuario: correo,
+        rol_id: rol_id
+    }
+    db.query('UPDATE usuarios SET ? WHERE id = ?', [nuevo, id], (err, result) =>{
+        if(err){
+            req.flash('tipo', 'danger');
+            req.flash('msg', 'Algo ocurrió, usuario NO actualizado!');
+            res.redirect('/usuarios');
+        }else{
+            req.flash('tipo', 'success')
+            req.flash('msg', 'Usuario actualizado con éxito');
+            res.redirect('/usuarios');
+        }
+    });
 });
+
 module.exports = rutas;
