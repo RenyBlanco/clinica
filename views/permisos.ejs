@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="card-body">
                                     <form method="post" action="/guardarPermisos">
-                                        <input type="hidden" id="idRrol" name="idRol" value="<%= rol.idroles %>" required="">
+                                        <input type="hidden" id="rol_id" name="rol_id" value="<%= rol.idroles %>" required="">
                                         <div class="tile-body">
                                             <table id="example" class="table table-hover">
                                                 <thead class="thead-dark">
@@ -39,29 +39,30 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <% permisos.forEach(function(perm){ %>
-                                                        <% wCheck = perm.insertar  == 1 ? " checked " : ""; %>
-                                                        <% uCheck = perm.modificar == 1 ? " checked " : ""; %>
-                                                        <% dCheck = perm.borrar  == 1 ? " checked " : ""; %>
-                                                        <% rCheck = perm.ver   == 1 ? " checked " : ""; %>
+                                                    <% for (let idx = 0; idx < modulos.length ; idx++) { %>
                                                         <tr>
+                                                            <td>                           modulos[<?= $permiso['id']?>][id_modulo]
+                                                                <input type="hidden" name="modulo_id" value="<%= modulos[idx].idmodulos %>">
+                                                                <%= modulos[idx].modulo %>
+                                                            </td>
+                                                            <% wCheck = permisos[idx].insertar  == 1 ? " checked " : ""; %>
+                                                            <% uCheck = permisos[idx].modificar == 1 ? " checked " : ""; %>
+                                                            <% dCheck = permisos[idx].borrar  == 1 ? " checked " : ""; %>
+                                                            <% rCheck = permisos[idx].ver   == 1 ? " checked " : ""; %>
                                                             <td>
-                                                                <input type="hidden" name="modulos[<%= perm.idpermisos %>][modulo_id]" value="<%= perm.idpermisos %>">
-                                                                <%= perm.modulo %></td>
-                                                            <td>
-                                                                <input type="checkbox" name="modulos[<%= perm.idpermisos %>][insertar]" <%= wCheck %> data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                                                <input type="checkbox" name="modulo_id[<%= idx %>][ins]" <%= wCheck %> data-bootstrap-switch data-off-color="danger" data-on-color="success">
                                                             </td>
                                                             <td>
-                                                                <input type="checkbox" name="modulos[<%= perm.idpermisos %>][modificar]" <%= uCheck %> data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                                                <input type="checkbox" name="modulo_id[<%= idx %>][mod]" <%= uCheck %> data-bootstrap-switch data-off-color="danger" data-on-color="success">
                                                             </td>
                                                             <td>
-                                                                <input type="checkbox" name="modulos[<%= perm.idpermisos %>][borrar]" <%= dCheck %> data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                                                <input type="checkbox" name="modulo_id[<%= idx %>][dlt]" <%= dCheck %> data-bootstrap-switch data-off-color="danger" data-on-color="success">
                                                             </td>
                                                             <td>
-                                                                <input type="checkbox" name="modulos[<%= perm.idpermisos %>][ver]" <%= rCheck %> data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                                                <input type="checkbox" name="modulo_id[<%= idx %>][ver]" <%= rCheck %> data-bootstrap-switch data-off-color="danger" data-on-color="success">
                                                             </td>
                                                         </tr>
-                                                    <% }); %>
+                                                    <% }; %>
                                                 </tbody>
                                             </table>
                                         </div> <!-- /.tile-body -->
@@ -117,8 +118,8 @@
             });
 
             $("input[data-bootstrap-switch]").each(function(){
-            $(this).bootstrapSwitch('state', $(this).prop('checked'));
-            })
+                $(this).bootstrapSwitch('state', $(this).prop('checked'));
+            });
         </script>
     </body>
 </html>

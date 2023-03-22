@@ -32,25 +32,75 @@ rutas.post('/addRoles', async (req, res) => {
 rutas.post('/permisos', (req, res) => {
     const { id } = req.body;
     let rol = [];
+    let modulos = [];
+    let permisos = [];
     db.query('SELECT * FROM roles WHERE idroles = ?', [id], (err, result) =>{
         rol = result[0];
     });
-    db.query('SELECT m.idmodulos, m.modulo, p.rol_id, p.insertar, p.modificar, p.borrar, p.ver FROM permisos p INNER JOIN modulos m ON p.modulo_id = m.idmodulos WHERE p.rol_id = ?', [id], (err, result) => {
-        res.render('permisos', {permisos: result, rol: rol});
+    db.query('SELECT * FROM modulos', (err, result) => {
+        modulos = result;
+    });
+    db.query('SELECT * FROM permisos p WHERE p.rol_id = ?', [id], (err, result) => {
+        if(result.length == 0){
+            for (let index = 0; index < modulos.length; index++) {
+                let registro = {
+                    rold_id: id,
+                    insertar : "",
+                    ver : "",
+                    modificar : "",
+                    borrar : ""
+                };
+                permisos.push(registro);
+            }
+            res.render('permisos', {permisos: permisos, rol: rol, modulos: modulos});
+        }else{
+            res.render('permisos', {permisos: result, rol: rol, modulos: modulos});
+        }
     });
     
 });
 
 rutas.post('/guardarPermisos', (req, res) => {
-    const { id } = req.body;
-    let rol = [];
-    db.query('SELECT * FROM roles WHERE idroles = ?', [id], (err, result) =>{
-        rol = result[0];
-    });
-    db.query('SELECT m.idmodulos, m.modulo, p.rol_id, p.insertar, p.modificar, p.borrar, p.ver FROM permisos p INNER JOIN modulos m ON p.modulo_id = m.idmodulos WHERE p.rol_id = ?', [id], (err, result) => {
-        res.render('permisos', {permisos: result, rol: rol});
-    });
+    const { rol_id, modulo_id } = req.body;
+    console.log('Mod ->', modulo_id);
     
+    res.send('Vslor')
+    // db.query('DELETE FROM permisos WHERE rol_id = ?', [rol_id], (err, result) =>{
+    //     if(err){
+    //         req.flash('tipo', 'danger');
+    //         req.flash('msg', 'Algo ocurrió, los permisos NO pudieron ser guardados!');
+    //         res.redirect('/roles');
+    //     }else{
+    //         for (let index = 0; index < modulo_id.length; index++) {
+    //             let error = false;
+    //             let registro = {
+    //                 rol_id : rol_id,
+    //                 modulo_id : modulo_id[index],
+    //                 ver : (ver[index] == 'undefined') ? 0 : 1,
+    //                 insertar : (insertar[index] == 'undefined') ? 0 : 1,
+    //                 modificar : (modificar[index] == 'undefined') ? 0 : 1,
+    //                 borrar : (borrar[index] == 'undefined') ? 0 : 1,
+    //             }
+                
+    //             db.query('INSERT INTO permisos SET ?',[registro], (err, resultado)=>{
+    //                 if(err){
+    //                     error = true;
+    //                 }
+    //             });
+    //             if (error) {
+    //                 break;
+    //             }
+    //             if(error){
+    //                 req.flash('tipo', 'danger');
+    //                 req.flash('msg', 'Algo ocurrió, los permisos NO pudieron ser actualizados!');
+    //                 res.redirect('/roles');
+    //             }
+    //         }
+    //         req.flash('tipo', 'success');
+    //         req.flash('msg', 'Los permisos se han actualizado!');
+    //         res.redirect('/roles');
+    //     }
+    // });
 })
 
 rutas.post('/editarRol', (req, res) => {
