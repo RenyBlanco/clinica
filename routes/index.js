@@ -1,5 +1,6 @@
 const express = require("express");
 const rutas = express.Router();
+const helpers = require('../libs/helpers');
 
 rutas.get('/', function(req, res) {
     res.render("index");
@@ -25,7 +26,7 @@ rutas.get("/politicas", (req, res) => {
     res.render("politicas");
 });
 
-rutas.get("/negocio", (req, res) => {
+rutas.get("/negocio", helpers.autenticado, (req, res) => {
     res.render("negocio");
 });
 

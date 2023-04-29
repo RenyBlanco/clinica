@@ -1,0 +1,106 @@
+<%- include('includes/header2'); %>
+
+        <div class="content-wrapper">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        
+                    </div>
+                </div>
+            </section>
+    
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="float-left">
+                                        <h3 style="color: gray;"><i class="fa-solid fa-user-injured"></i> Nuevo Paciente</h3>
+                                    </div>
+                                    <div class="float-right">
+                                    <a href="/pacientes" class="btn btn-outline-success">
+                                        <i class="fa fa-reply" aria-hidden="true"></i> Regresar al listado
+                                    </a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <form method="post" action="/addPaciente" id="frmRegistro" autocomplete="off">
+                                        <div class="form-group">
+                                            <label for="nombre">Nombre</label>
+                                            <input class="form-control" type="text" name="nombre" required id="nombre" autofocus
+                                                placeholder="Nombre del Paciente">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="rut">RUT</label>
+                                            <input name="rut" required type="text" class="form-control" id="rut"
+                                                placeholder="sin puntos, ni guión, incluir digito verificador" data-inputmask='"mask": "99.999.999-*"' data-mask required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="correo">Correo</label>
+                                            <input class="form-control" type="email" name="correo" required id="correo"
+                                                placeholder="tu_correo@dominio.com">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="telefono">Teléfono</label>
+                                            <input class="form-control" type="text" name="telefono" required id="telefono"
+                                                placeholder="X XXXX XXXX">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="direccion">Dirección</label>
+                                            <input name="direccion" required type="direccion" class="form-control" id="direccion"
+                                                placeholder="Calle,Número,Comuna" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fa fa-save"></i> Guardar
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <%- include('includes/footer2'); %> 
+        
+        <script type="text/javascript">
+            $('[data-mask]').inputmask()
+            $(document).ready(function () {
+                APP.validacionGeneral('frmRegistro');
+                
+                $("#rut").on('change', function() {
+                    let rut = $("#rut").val().slice().replaceAll('.','');
+                    let indice = rut.indexOf('-');
+                    let digito = rut[indice+1];
+                    digito = digito.toUpperCase();
+                    let contador = 0;
+                    let suma = 0;
+                    let inicio = indice-1;
+                    for(let i = inicio; i >= 0; i--) {
+                        suma += (parseInt(rut[i])*(2+contador));
+                        if(contador < 5){
+                            contador++;
+                        }else{
+                            contador=0;
+                        }
+                    }
+                    
+                    let valor = parseInt(suma/11);
+                    let diferencia = suma-(valor*11);
+                    let verifica = 11-diferencia;
+                    verifica === 10 ? verificador = 'K' : verificador = verifica; 
+                    if(digito != verificador) {
+                        toastr.error('Rut Invalido');
+                        $("#rut").val('');
+                        $("#rut").focus();
+                    }
+                    
+                });
+            });
+        </script>
+    </body>
+</html>
+    

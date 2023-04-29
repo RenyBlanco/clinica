@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const { promisify } = require('util');
 
 const helpers = {};
 
@@ -19,5 +20,25 @@ helpers.matchPassword = async (pass, clave) => {
         console.error(error);
     }
 };
+
+helpers.autenticado = async (req, res, next) => {
+    if (req.cookies.jwt) {
+        try {
+            const verificacion = await promisify(jwt.verify)(req.cookies.jwt, process.env.LLAVE_JWT);
+            console.log('Resultad ', verificacion);
+            db.query('SELECT * FROM usuarios WHERE id = ?', [verificacion], async (err, result) => { 
+                if (!results) { return next() }
+                req.user = result[0];
+                return next();
+            });
+        } catch (error) {
+            console.log(error);
+            return next();
+            
+        }
+    } else {
+        res.redirect('/');
+    }
+}
 
 module.exports = helpers;

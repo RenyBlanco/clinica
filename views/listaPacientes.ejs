@@ -1,0 +1,92 @@
+<%- include('includes/header2'); %>
+
+        <div class="content-wrapper">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <% if (mensaje.length !== 0) { %>
+                        <div class="row mb-2">
+                            <div class="col-lg-12">
+                                <div class="alert alert-<%= tipo %> alert-dismissible">
+                                    <button type="button" class="close" data-bs-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <h5> Atención <i class="fa-solid fa-circle-exclamation"></i></h5>
+                                    <strong><%= mensaje %></strong>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            </section>
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="float-left">
+                                        <h3 style="color: gray;"><i class="fa-solid fa-user-injured"></i> Pacientes</h3>
+                                    </div>
+                                    <div class="float-right">
+                                        <a href="/addPaciente" 
+                                        class="btn btn-outline-primary">
+                                            <i class="fa fa-plus-circle"></i> Nuevo Paciente
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table id="example2" class="table table-hover table-bordered">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Correo</th>
+                                                <th>Teléfono</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (listado) { %>
+                                                <% listado.forEach(function(paciente){ %>
+                                                    <tr>
+                                                        <td><%= paciente.nombre %></td>
+                                                        <td><%= paciente.correo %></td>
+                                                        <td><%= paciente.telefono %></td>
+                                                        <td style="text-align:center;">
+                                                            <% if (paciente.estado) { %>
+                                                                <span class="badge badge-success">Activo</span>
+                                                            <% } else { %>
+                                                                <span class="badge badge-danger">Inactivo</span>
+                                                            <% } %>
+                                                        </td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-auto">
+                                                                    <form method="post" action="/editPac">
+                                                                        <input name="id" type="hidden" value="<%= paciente.idpaciente %>">
+                                                                        <button type="submit" class="btn btn-warning btn-sm" title="Editar">
+                                                                            <i class="fa-solid fa-user-pen"></i>
+                                                                        </button>
+                                                                    </form>
+                                                                    
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <a href="/eliminaPaciente/<%= paciente.idpaciente %>" class="btn btn-danger btn-sm" title="Elimina">
+                                                                        <i class="fa-solid fa-user-xmark"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <% }); %>
+                                            <% } %>
+                                        </tbody>
+                                    </table>
+                                </div> <!-- /.card-body -->
+                            </div> <!-- /.card -->
+                        </div>
+                    </div> <!-- /.row -->
+                </div> <!-- /.container-fluid -->
+            </section> <!-- /.content -->
+        </div> <!-- /.content-wrapper -->
+        <%- include('includes/footer2'); %> 
+    </body>
+</html>

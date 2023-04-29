@@ -1,0 +1,115 @@
+<%- include('includes/header2'); %>
+
+        <div class="content-wrapper">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        
+                    </div>
+                </div>
+            </section>
+    
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="float-left">
+                                        <h3 style="color: gray;"><i class="fa-solid fa-user-pen"></i> Edita Paciente</h3>
+                                    </div>
+                                    <div class="float-right">
+                                    <a href="/pacientes" class="btn btn-outline-success">
+                                        <i class="fa fa-reply" aria-hidden="true"></i> Regresar al listado
+                                    </a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <form method="post" action="/editarPaciente" id="frmEdicion" autocomplete="off">
+                                        <input type="hidden" name="id" value="<%= paciente.idpaciente %>">
+                                        <div class="form-group">
+                                            <label for="nombre">Nombre</label>
+                                            <input class="form-control" type="text" name="nombre" required id="nombre" autofocus
+                                                value="<%= paciente.nombre %>">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="rut">RUT</label>
+                                            <input name="rut" required type="text" class="form-control" id="rut"
+                                                value="<%= paciente.rut %>" data-inputmask='"mask": "99.999.999-*"' data-mask required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="correo">Correo</label>
+                                            <input class="form-control" type="email" name="correo" required id="correo"
+                                            value="<%= paciente.correo %>">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="telefono">Teléfono</label>
+                                            <input class="form-control" type="text" name="telefono" required id="telefono"
+                                                value="<%= paciente.telefono %>">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="direccion">Dirección</label>
+                                            <input name="direccion" required type="direccion" class="form-control" id="direccion"
+                                                value="<%= paciente.direccion %>" required>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="estado">Estado del Paciente</label>
+                                            <select required class="custom-select" name="estado">
+                                                <option value="0" <%= paciente.estado == 0 ? 'selected' : '' %>>Inactivo</option>
+                                                <option value="1" <%= paciente.estado == 1 ? 'selected' : '' %>>Activo</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fa fa-save"></i> Actualizar
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <%- include('includes/footer2'); %> 
+        
+        <script type="text/javascript">
+            $('[data-mask]').inputmask()
+            $(document).ready(function () {
+                APP.validacionGeneral('frmEdicion');
+                
+                $("#rut").on('change', function() {
+                    let rut = $("#rut").val().slice().replaceAll('.','');
+                    let indice = rut.indexOf('-');
+                    let digito = rut[indice+1];
+                    digito = digito.toUpperCase();
+                    let contador = 0;
+                    let suma = 0;
+                    let inicio = indice-1;
+                    for(let i = inicio; i >= 0; i--) {
+                        suma += (parseInt(rut[i])*(2+contador));
+                        if(contador < 5){
+                            contador++;
+                        }else{
+                            contador=0;
+                        }
+                    }
+                    
+                    let valor = parseInt(suma/11);
+                    let diferencia = suma-(valor*11);
+                    let verifica = 11-diferencia;
+                    verifica === 10 ? verificador = 'K' : verificador = verifica; 
+                    if(digito != verificador) {
+                        toastr.error('Rut Invalido');
+                        $("#rut").val('');
+                        $("#rut").focus();
+                    }
+                    
+                });
+            });
+        </script>
+    </body>
+</html>
+    

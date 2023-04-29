@@ -58,7 +58,7 @@
                                                                     onclick="edita('<%= mod.idmodulos %>')" title="Editar">
                                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                                 </button>
-                                                                <a href="/eliminaMod/<%= mod.idmodulos %>" class="btn btn-danger btn-sm">
+                                                                <a href="/eliminaModulo/<%= mod.idmodulos %>" class="btn btn-danger btn-sm">
                                                                     <i class="fa-regular fa-trash-can" title="Borrar"></i>
                                                                 </a>
                                                             </div>
@@ -86,6 +86,7 @@
             function edita(id) {
                 let mod = $('#m_'+id).data('modulo');
                 let estado = $('#m_'+id).data('estado');
+                console.log('Estado ', estado);
                 var myModal = new bootstrap.Modal(document.getElementById('editarModal'));
                 myModal.show();
                 $('#edId').val(id);
@@ -151,7 +152,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm">
-                        <form method="post" action="/editarMod" id="frmModulo">
+                        <form method="post" action="/editarModulo" id="frmModulo">
                             <input type="hidden" id="edId" name="idmodulos">
                             <div class="form-group">
                                 <label for="modulo">Nombre del Modulo</label>

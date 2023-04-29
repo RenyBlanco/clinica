@@ -1,7 +1,6 @@
 const express = require("express"); 
 const rutas = express.Router();
 const axios = require('axios');
-const db = require('../database/db');
 
 rutas.get('/usuarios', async (req, res) => {
     let mensaje = req.flash('msg');
@@ -16,7 +15,6 @@ rutas.get('/usuarios', async (req, res) => {
     }catch(err){
         console.log(err)
     }
-
 });
 
 rutas.get('/registro', async (req, res) => {

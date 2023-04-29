@@ -66,20 +66,125 @@
 <script src="/js/jquery.mobilemenu.js"></script>
 <script src="/js/camera.js"></script>
 <script src="/js/jquery.mobile.customized.min.js"></script>
+<!-- jquery-validation -->
+<script src="js/jquery-validation/jquery.validate.min.js" ></script>
+<script src="js/jquery-validation/additional-methods.min.js" ></script>
+<script src="js/jquery-validation/localization/messages_es_AR.js"></script>
+<script src="js/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <script type="text/javascript">
+    function myFocus(element){
+        if (element.value == element.defaultValue){
+            element.focus();
+            element.value = '';
+        }
+    }
+    function myBlur(element){
+        if (element.value == ''){
+            element.blur();
+            element.value = element.defaultValue;
+        }
+    }
+</script>
+<script type="text/javascript">
+    // Validacion de entrada de campos en los form
+    
+    const formulario = $('#frmCita');
+    formulario.validate({
+        rules: "",
+        messages: "",
+        errorElement: 'div',
+        errorClass: 'invalid-feedback',
+        focusInvalid: false,
+        ignore: "",
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element) {
+            $(element).removeClass('is-invalid');
+        },
+        success: function (element) {
+            $(element).removeClass('is-invalid');
+        },
+        errorPlacement: function (error, element) {
+            if (element.closest('.bootsrap-select').length > 0) {
+                element.closest('.bootsrap-select').find('.bs-placeholder').after(error);
+            } else if ($(element).is('select') && element.hasClass('select2-hidden-accessible')) {
+                element.next().after(error);
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        invalidHandler: function (event, validator) {
 
-function myFocus(element){
-    if (element.value == element.defaultValue){
-        element.focus();
-        element.value = '';
-    }
-}
-function myBlur(element){
-    if (element.value == ''){
-        element.blur();
-        element.value = element.defaultValue;
-    }
-}
+        },
+        submitHandler: function (form) {
+            return true;
+        }
+    });
+</script>
+<script>
+    $(function(){
+        //const miModal = new bootstrap.Modal('#miModal', options)
+        $('.btn').on('click',()=>{
+            $("#miModal").modal("show");
+        })
+    });
 </script>
 </body>
 </html>
+
+<!-- Modal -->
+<div class="modal fade" id="miModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="miModalLabel">Cita</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <form class="row g-3 needs-validation" id="frmCita" method="post" novalidate>
+            <div class="col-md-4">
+                <label for="validationCustom01" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="validationCustom01" placeholder="Nombre" required>
+                <div class="invalid-feedback">
+                    Por favor incluya el nombre
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="validationCustom02" class="form-label">Apellido</label>
+                <input type="text" class="form-control" id="validationCustom02" placeholder="Apellido" required>
+                <div class="invalid-feedback">
+                    Por favor incluya el apellido
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="validationCustomUsername" class="form-label">Rut</label>
+                <div class="input-group has-validation">
+                    <input type="text" class="form-control" id="validationCustomUsername" required>
+                    <div class="invalid-feedback">
+                        debe ingresar el rut
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="validationCustom03" class="form-label">Fecha</label>
+                <input type="date" class="form-control" id="validationCustom03" required>
+                <div class="invalid-feedback">
+                    Debe seleccionar el día
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label for="validationCustom04" class="form-label">Hora</label>
+                <input type="text" class="form-control" id="validationCustom04" required>
+                <div class="invalid-feedback">
+                   debe seleccionar la hora
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Crear Cita</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
