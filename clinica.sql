@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 10-12-2022 a las 13:36:43
--- Versión del servidor: 8.0.30
--- Versión de PHP: 7.4.19
+-- Host: localhost:3306
+-- Generation Time: Apr 29, 2023 at 07:45 PM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,33 +18,87 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `clinica`
+-- Database: `clinica`
 --
-DROP SCHEMA IF EXISTS `clinica` ;
-CREATE SCHEMA IF NOT EXISTS `clinica` ;
-USE `clinica` ;
-
-
-CREATE TABLE `modulos` (
-  `id` bigint UNSIGNED NOT NULL,
-  `modulo` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
-  `descripcion` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
-
---
--- Volcado de datos para la tabla `modulos`
---
-
-INSERT INTO `modulos` (`id`, `modulo`, `descripcion`) VALUES
-(1, 'Accesos', 'Configuración de usuarios, módulos, roles y permisos'),
-(2, 'Compras', 'Proceso de adquisición, desde CDP hasta Adjudicación'),
-(3, 'Bodegas', 'Recepción de bienes, entrega de materiales y otros'),
-(4, 'Parametros', 'Configuración parámetros generales del sistema');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `permisos`
+-- Table structure for table `citas`
+--
+
+CREATE TABLE `citas` (
+  `idcitas` int NOT NULL,
+  `fecha` date NOT NULL,
+  `rut` varchar(12) NOT NULL,
+  `hora` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `historias`
+--
+
+CREATE TABLE `historias` (
+  `idhistoria` bigint NOT NULL,
+  `rut` varchar(12) NOT NULL,
+  `tratamiento` text NOT NULL,
+  `observacion` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `modulos`
+--
+
+CREATE TABLE `modulos` (
+  `idmodulos` bigint UNSIGNED NOT NULL,
+  `modulo` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
+  `descripcion` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
+  `estado` tinyint NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Dumping data for table `modulos`
+--
+
+INSERT INTO `modulos` (`idmodulos`, `modulo`, `descripcion`, `estado`) VALUES
+(1, 'Accesos', 'Configuración de usuarios, módulos, roles y permisos', 1),
+(2, 'Compras', 'Proceso de adquisición, desde CDP hasta Adjudicación', 1),
+(3, 'Bodegas', 'Recepción de bienes, entrega de materiales y otros', 1),
+(4, 'Parametros', 'Configuración parámetros generales del sistema', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pacientes`
+--
+
+CREATE TABLE `pacientes` (
+  `idpaciente` bigint NOT NULL,
+  `nombre` varchar(80) NOT NULL,
+  `correo` varchar(100) NOT NULL,
+  `telefono` varchar(20) NOT NULL,
+  `rut` varchar(12) NOT NULL,
+  `direccion` varchar(100) NOT NULL,
+  `id_historia` bigint DEFAULT NULL,
+  `estado` tinyint NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `pacientes`
+--
+
+INSERT INTO `pacientes` (`idpaciente`, `nombre`, `correo`, `telefono`, `rut`, `direccion`, `id_historia`, `estado`) VALUES
+(1, 'Reinaldo Blanco', 'rey@rj.cl', '969158543', '25.801.628-9', 'Camino del sol,800, Quilpué', NULL, 1),
+(2, 'Oscar', 'correo@correo.com', '9 6915 8543', '16.500.544-9', 'Camino del sol, 800, Quilpue', NULL, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permisos`
 --
 
 CREATE TABLE `permisos` (
@@ -58,7 +112,7 @@ CREATE TABLE `permisos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
--- Volcado de datos para la tabla `permisos`
+-- Dumping data for table `permisos`
 --
 
 INSERT INTO `permisos` (`id`, `id_modulo`, `id_rol`, `ins`, `updt`, `vw`, `dlt`) VALUES
@@ -70,7 +124,7 @@ INSERT INTO `permisos` (`id`, `id_modulo`, `id_rol`, `ins`, `updt`, `vw`, `dlt`)
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `roles`
+-- Table structure for table `roles`
 --
 
 CREATE TABLE `roles` (
@@ -80,7 +134,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
--- Volcado de datos para la tabla `roles`
+-- Dumping data for table `roles`
 --
 
 INSERT INTO `roles` (`idroles`, `rol`, `estado`) VALUES
@@ -93,7 +147,7 @@ INSERT INTO `roles` (`idroles`, `rol`, `estado`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `sesiones`
+-- Table structure for table `sesiones`
 --
 
 CREATE TABLE `sesiones` (
@@ -104,9 +158,29 @@ CREATE TABLE `sesiones` (
 
 -- --------------------------------------------------------
 
+--
+-- Table structure for table `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `session_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `expires` int UNSIGNED NOT NULL,
+  `data` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Estructura de tabla para la tabla `usuarios`
+-- Dumping data for table `sessions`
+--
+
+INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
+('UujeesNzwUMbAi5osT4IzQJ6eq12gX8q', 1682870396, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('db1UKFxs--rn62gjDJfH-rXZpwK7bgw3', 1682859454, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('nflCh0SnOY7qWaXl3IytVVRy5869al3u', 1682859673, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -123,20 +197,52 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
--- Volcado de datos para la tabla `usuarios`
+-- Dumping data for table `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `id_rol`, `nombre`, `correo`, `rut`, `pass`, `estado`, `activo`, `fecha_creacion`, `token`) VALUES
-(1, 1, 'Reinaldo Blanco', 'rj@rj.cl', '25.801.628-9', '$2y$10$zzcWlSScGAPVCX4HyIWWguuGKT5ME6B34IVjDSUoUmOYmNPjo/gxC', 1, 1, '2023-04-22 09:51:36', '')
+INSERT INTO `usuarios` (`id`, `rol_id`, `nombre`, `correo`, `rut`, `clave`, `estado`, `activo`, `fecha_creacion`, `token`) VALUES
+(1, 1, 'Reinaldo Blanco', 'rj@rj.cl', '25.801.628-9', '$2y$10$zzcWlSScGAPVCX4HyIWWguuGKT5ME6B34IVjDSUoUmOYmNPjo/gxC', 1, 1, '2023-04-22 09:51:36', ''),
+(8, 1, 'Rey Blanco', 'rey@rj.cl', NULL, '$2a$10$6CDa6A9JvIBesbGig8lcqe/U5KmZH6N7S/TzkVaxky0wH6bbJp8ua', 1, 1, '2023-04-22 11:02:56', NULL),
+(9, 2, 'Paulo', 'pau@rj.cl', NULL, '[object Promise]', 1, 1, '2023-04-25 07:24:21', NULL),
+(10, 1, 'Gabriela', 'gaby@rj.cl', NULL, '[object Promise]', 1, 1, '2023-04-25 07:33:44', NULL),
+(11, 1, 'Gabriela', 'gaby@rj.cl', NULL, '[object Promise]', 1, 0, '2023-04-25 07:34:59', NULL),
+(12, 2, 'Otro', 'otro@rj.cl', NULL, '[object Promise]', 1, 0, '2023-04-25 07:43:52', NULL),
+(13, 2, 'Nuevo', 'new@rj.cl', NULL, '[object Promise]', 1, 0, '2023-04-25 07:46:23', NULL),
+(14, 1, 'Otro Nuevo', 'baa@rj.cl', NULL, '[object Promise]', 1, 0, '2023-04-25 07:48:25', NULL),
+(15, 3, 'Mensajes', 'men@rb.cl', NULL, '[object Promise]', 1, 1, '2023-04-25 09:24:30', NULL),
+(16, 2, 'Prueba Mesnaje', 'mes@rb.cl', NULL, '[object Promise]', 1, 0, '2023-04-25 09:25:44', NULL);
 
 --
--- Indices de la tabla `modulos`
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `citas`
+--
+ALTER TABLE `citas`
+  ADD PRIMARY KEY (`idcitas`);
+
+--
+-- Indexes for table `historias`
+--
+ALTER TABLE `historias`
+  ADD PRIMARY KEY (`idhistoria`),
+  ADD KEY `rut` (`rut`);
+
+--
+-- Indexes for table `modulos`
 --
 ALTER TABLE `modulos`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`idmodulos`);
 
 --
--- Indices de la tabla `permisos`
+-- Indexes for table `pacientes`
+--
+ALTER TABLE `pacientes`
+  ADD PRIMARY KEY (`idpaciente`);
+
+--
+-- Indexes for table `permisos`
 --
 ALTER TABLE `permisos`
   ADD PRIMARY KEY (`id`),
@@ -144,61 +250,85 @@ ALTER TABLE `permisos`
   ADD KEY `id_rol` (`id_rol`);
 
 --
--- Indices de la tabla `roles`
+-- Indexes for table `roles`
 --
 ALTER TABLE `roles`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`idroles`);
 
 --
--- Indices de la tabla `usuarios`
+-- Indexes for table `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`session_id`);
+
+--
+-- Indexes for table `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_rol` (`id_rol`) 
+  ADD KEY `id_rol` (`rol_id`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `modulos`
+-- AUTO_INCREMENT for table `citas`
+--
+ALTER TABLE `citas`
+  MODIFY `idcitas` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `historias`
+--
+ALTER TABLE `historias`
+  MODIFY `idhistoria` bigint NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `modulos`
 --
 ALTER TABLE `modulos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idmodulos` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `permisos`
+-- AUTO_INCREMENT for table `pacientes`
+--
+ALTER TABLE `pacientes`
+  MODIFY `idpaciente` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `permisos`
 --
 ALTER TABLE `permisos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `roles`
+-- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `idroles` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de la tabla `usuarios`
+-- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `permisos`
+-- Constraints for table `permisos`
 --
 ALTER TABLE `permisos`
-  ADD CONSTRAINT `permisos_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+  ADD CONSTRAINT `permisos_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`idroles`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `usuarios`
+-- Constraints for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`idroles`) ON DELETE RESTRICT ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
