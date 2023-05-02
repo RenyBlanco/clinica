@@ -25,7 +25,6 @@ helpers.autenticado = async (req, res, next) => {
     if (req.cookies.jwt) {
         try {
             const verificacion = await promisify(jwt.verify)(req.cookies.jwt, process.env.LLAVE_JWT);
-            console.log('Resultad ', verificacion);
             db.query('SELECT * FROM usuarios WHERE id = ?', [verificacion], async (err, result) => { 
                 if (!results) { return next() }
                 req.user = result[0];
@@ -34,7 +33,6 @@ helpers.autenticado = async (req, res, next) => {
         } catch (error) {
             console.log(error);
             return next();
-            
         }
     } else {
         res.redirect('/');

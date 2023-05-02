@@ -86,6 +86,14 @@
     }
 </script>
 <script type="text/javascript">
+    $(function(){
+        //const miModal = new bootstrap.Modal('#miModal', options)
+        $('.btn').on('click',()=>{
+            $("#miModal").modal("show");
+        })
+    });
+</script>
+<script type="text/javascript">
     // Validacion de entrada de campos en los form
     
     const formulario = $('#frmCita');
@@ -122,14 +130,7 @@
         }
     });
 </script>
-<script>
-    $(function(){
-        //const miModal = new bootstrap.Modal('#miModal', options)
-        $('.btn').on('click',()=>{
-            $("#miModal").modal("show");
-        })
-    });
-</script>
+
 </body>
 </html>
 
