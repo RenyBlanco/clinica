@@ -30,4 +30,8 @@ rutas.get("/negocio", helpers.autenticado, (req, res) => {
     res.render("negocio");
 });
 
+rutas.post("/guardaCita", (req, res) => {
+    res.send("Grabará");
+});
+
 module.exports = rutas;

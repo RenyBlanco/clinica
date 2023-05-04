@@ -71,6 +71,29 @@
 <script src="js/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 
 <script src="js/galeria.js"></script>
+
+<script type="text/javascript">
+  (() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+
+</script>
+
 <script type="text/javascript">
     function myFocus(element){
         if (element.value == element.defaultValue){
@@ -84,6 +107,7 @@
             element.value = element.defaultValue;
         }
     }
+
 </script>
 <script type="text/javascript">
     $(function(){
@@ -91,44 +115,6 @@
         $('.btn').on('click',()=>{
             $("#miModal").modal("show");
         })
-    });
-</script>
-
-<script type="text/javascript">
-    // Validacion de entrada de campos en los form
-    
-    const formulario = $('#frmCita');
-    formulario.validate({
-        rules: "",
-        messages: "",
-        errorElement: 'div',
-        errorClass: 'invalid-feedback',
-        focusInvalid: false,
-        ignore: "",
-        highlight: function (element, errorClass, validClass) {
-            $(element).addClass('is-invalid');
-        },
-        unhighlight: function (element) {
-            $(element).removeClass('is-invalid');
-        },
-        success: function (element) {
-            $(element).removeClass('is-invalid');
-        },
-        errorPlacement: function (error, element) {
-            if (element.closest('.bootsrap-select').length > 0) {
-                element.closest('.bootsrap-select').find('.bs-placeholder').after(error);
-            } else if ($(element).is('select') && element.hasClass('select2-hidden-accessible')) {
-                element.next().after(error);
-            } else {
-                error.insertAfter(element);
-            }
-        },
-        invalidHandler: function (event, validator) {
-
-        },
-        submitHandler: function (form) {
-            return true;
-        }
     });
 </script>
 
@@ -145,7 +131,7 @@
       </div>
 
       <div class="modal-body">
-        <form class="row g-3 needs-validation" id="frmCita" method="post" novalidate>
+        <form class="row g-3 needs-validation" novalidate action="/guardaCita" method="post">
             <div class="col-md-4">
                 <label for="validationCustom01" class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="validationCustom01" placeholder="Nombre" required>
