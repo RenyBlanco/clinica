@@ -42,34 +42,50 @@ rutas.post('/addRoles', async (req, res) => {
     }
 });
 
-rutas.post('/permisos', (req, res) => {
+rutas.post('/permisos', async (req, res) => {
     const { id } = req.body;
     let rol = [];
     let modulos = [];
     let permisos = [];
-    db.query('SELECT * FROM roles WHERE idroles = ?', [id], (err, result) =>{
-        rol = result[0];
-    });
-    db.query('SELECT * FROM modulos', (err, result) => {
-        modulos = result;
-    });
-    db.query('SELECT * FROM permisos WHERE rol_id = ?', [id], (err, result) => {
-        if(result.length == 0){
-            for (let index = 0; index < modulos.length; index++) {
-                let registro = {
-                    rold_id: id,
-                    insertar : "",
-                    ver : "",
-                    modificar : "",
-                    borrar : ""
-                };
-                permisos.push(registro);
-            }
-            res.render('permisos', {permisos: permisos, rol: rol, modulos: modulos});
-        }else{
-            res.render('permisos', {permisos: result, rol: rol, modulos: modulos});
+    try {
+        const resp = await axios.get("http://localhost:5000/api/v1/rol/"+id);
+        if(resp.err){
+            console.log(resp.err)
+        } else {
+            rol = resp.data[0];
         }
-    });
+        const resp1 = await axios.get("http://localhost:5000/api/v1/modulos");
+        if(resp1.err){
+            console.log(resp1.err)
+        }else{
+            modulos = resp1.data;
+        }
+        const resp2 = await axios.get("http://localhost:5000/api/v1/permisos/"+id);
+        if(resp2.err){
+            console.log(resp2.err)
+        } else {
+            permisos = resp2.data;
+            if(permisos.length == 0){
+                for (let index = 0; index < modulos.length; index++) {
+                    let registro = {
+                        rol_id: id,
+                        ins : "",
+                        vw : "",
+                        updt : "",
+                        dlt : ""
+                    };
+                    permisos.push(registro);
+                }
+                res.render('permisos', {permisos: permisos, rol: rol, modulos: modulos});
+            }else{
+                res.render('permisos', {permisos: permisos, rol: rol, modulos: modulos});
+            }
+        }
+    }catch(err){
+        console.log(err)
+    }
+    
+        
 });
 
 rutas.post('/guardarPermisos', (req, res) => {

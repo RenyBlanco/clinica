@@ -46,9 +46,8 @@
                                                         <% rCheck = permisos[idx].vw   == 1 ? " checked " : ""; %>
                                                         <tr>
                                                             <td>
-                                                                <input type="hidden" name="modulos0[<% idx %>][idmodulos]" value="<%= modulos[idx].idmodulos %>">
-                                                                <input type="hidden" name="modulos[<?= $permiso['id'] ?>][id_modulo]" value="<?= $permiso['id'] ?>">
-                                                        <% modulos['idmodulo'] %>
+                                                                <input type="hidden" name="modulos[<% idx %>]['idmodulos']" value="<%= permisos[idx].id %>" />
+                                                                <% modulos[idx].modulo %>
                                                             <td>
                                                                 <input type="checkbox" name="modulo_id[<%= idx %>][ins]" <%= wCheck %> data-bootstrap-switch data-off-color="danger" data-on-color="success">
                                                             </td>

@@ -121,6 +121,16 @@ app.get('/api/v1/roles', (req, res) => {
         }
     });
 });
+app.get('/api/v1/rol/:id', (req, res) => {
+    const {id}  = req.params;
+    db.query('SELECT * FROM roles WHERE idroles = ?', [id], (err, result) =>{
+        if (err) {
+            res.json({err})
+        } else {
+            res.send(result);
+        }
+    });
+});
 
 app.post('/api/v1/addRol', (req, res) => {
     const { rol, estado } = req.body;
@@ -186,6 +196,22 @@ app.put('/api/v1/eliminaRol/:id', (req, res) => {
         }
     });
 });
+
+
+// API PERMISOS
+
+app.get('/api/v1/permisos/:id', (req, res) => {
+    const {id} = req.params;
+    db.query("SELECT * FROM `permisos` WHERE id_rol = ?", [id], (err, result) => {
+        if (err) {
+            res.json({err})
+        } else {
+            res.send(result);
+        }
+    });
+});
+
+     
 
 // API MODULOS
 app.get('/api/v1/modulos', (req, res) => {
