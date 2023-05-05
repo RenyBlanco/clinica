@@ -8,6 +8,16 @@
 					<div class="container_12">
 						<div class="grid_12">
 							<div class="clear"></div>
+							<% if (mensaje.length !== 0) { %>
+								<div class="row mb-2">
+									<div class="col-lg-12">
+										<div class="alert alert-<%= tipo %> alert-dismissible fade show" role="alert">
+											<strong><%= mensaje %></strong>
+											<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+										</div>
+									</div>
+								</div>
+							<% } %>
 						</div>
 					</div>
 				</div>
@@ -125,5 +135,110 @@
 						</div>
 					</div>
 				</div>
+			
+		<%- include('includes/footer'); %>
+		<script type="text/javascript">
+			// Validacion de entrada de campos en los form
+			var APP = function () {
+				return {
+					validacionGeneral: function (id, reglas, mensajes) {
+						const formulario = $('#'+id);
+						formulario.validate({
+							rules: reglas,
+							messages: mensajes,
+							errorElement: 'div',
+							errorClass: 'invalid-feedback',
+							focusInvalid: false,
+							ignore: "",
+							highlight: function (element, errorClass, validClass) {
+								$(element).addClass('is-invalid');
+							},
+							unhighlight: function (element) {
+								$(element).removeClass('is-invalid');
+							},
+							success: function (element) {
+								$(element).removeClass('is-invalid');
+							},
+							errorPlacement: function (error, element) {
+								if (element.closest('.bootsrap-select').length > 0) {
+									element.closest('.bootsrap-select').find('.bs-placeholder').after(error);
+								} else if ($(element).is('select') && element.hasClass('select2-hidden-accessible')) {
+									element.next().after(error);
+								} else {
+									error.insertAfter(element);
+								}
+							},
+							invalidHandler: function (event, validator) {
 
-<%- include('includes/footer'); %>
+							},
+							submitHandler: function (form) {
+								return true;
+							}
+						});
+					}
+				}
+			}();
+		</script>
+		<script>
+            $(document).ready(function () {
+                APP.validacionGeneral('frmCita');
+            });
+        </script>
+		<script type="text/javascript">
+			$(function(){
+				//const miModal = new bootstrap.Modal('#miModal', options)
+				$('.btn').on('click',()=>{
+					$("#miModal").modal("show");
+				})
+				
+			});
+		</script>
+	</body>
+</html>
+
+<!-- Modal -->
+<div class="modal fade" id="miModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="miModalLabel">Cita</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <form class="row g-3" action="/guardaCita" method="post" id="frmCita">
+            <div class="col-md-6">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" name="nombre" placeholder="Nombre" required>
+            </div>
+            <div class="col-md-6">
+                <label for="apellido" class="form-label">Apellido</label>
+                <input type="text" class="form-control" name="apellido" placeholder="Apellido" required>
+            </div>
+            <div class="col-md-6">
+                <label for="rut" class="form-label">Rut</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" name="rut" required>
+                </div>
+            </div>
+			<div class="col-md-6">
+                <label for="correo" class="form-label">Correo</label>
+                <div class="input-group">
+                    <input type="email" class="form-control" name="correo" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="fecha" class="form-label">Fecha</label>
+                <input type="date" class="form-control" name="fecha" required>
+            </div>
+            <div class="col-md-4">
+                <label for="hora" class="form-label">Hora</label>
+                <input type="text" class="form-control" name="hora" required>
+            </div>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Crear Cita</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

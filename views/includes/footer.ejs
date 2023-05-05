@@ -1,4 +1,4 @@
-  <!--Footer-->
+        <!-- Footer -->
         <footer>
             <div class="footer_priv">
                 <div class="container_12">
@@ -73,28 +73,6 @@
 <script src="js/galeria.js"></script>
 
 <script type="text/javascript">
-  (() => {
-  'use strict'
-
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  const forms = document.querySelectorAll('.needs-validation')
-
-  // Loop over them and prevent submission
-  Array.from(forms).forEach(form => {
-    form.addEventListener('submit', event => {
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
-
-      form.classList.add('was-validated')
-    }, false)
-  })
-})()
-
-</script>
-
-<script type="text/javascript">
     function myFocus(element){
         if (element.value == element.defaultValue){
             element.focus();
@@ -109,70 +87,3 @@
     }
 
 </script>
-<script type="text/javascript">
-    $(function(){
-        //const miModal = new bootstrap.Modal('#miModal', options)
-        $('.btn').on('click',()=>{
-            $("#miModal").modal("show");
-        })
-    });
-</script>
-
-</body>
-</html>
-
-<!-- Modal -->
-<div class="modal fade" id="miModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="miModalLabel">Cita</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body">
-        <form class="row g-3 needs-validation" novalidate action="/guardaCita" method="post">
-            <div class="col-md-4">
-                <label for="validationCustom01" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="validationCustom01" placeholder="Nombre" required>
-                <div class="invalid-feedback">
-                    Por favor incluya el nombre
-                </div>
-            </div>
-            <div class="col-md-4">
-                <label for="validationCustom02" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="validationCustom02" placeholder="Apellido" required>
-                <div class="invalid-feedback">
-                    Por favor incluya el apellido
-                </div>
-            </div>
-            <div class="col-md-4">
-                <label for="validationCustomUsername" class="form-label">Rut</label>
-                <div class="input-group has-validation">
-                    <input type="text" class="form-control" id="validationCustomUsername" required>
-                    <div class="invalid-feedback">
-                        debe ingresar el rut
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <label for="validationCustom03" class="form-label">Fecha</label>
-                <input type="date" class="form-control" id="validationCustom03" required>
-                <div class="invalid-feedback">
-                    Debe seleccionar el día
-                </div>
-            </div>
-            <div class="col-md-3">
-                <label for="validationCustom04" class="form-label">Hora</label>
-                <input type="text" class="form-control" id="validationCustom04" required>
-                <div class="invalid-feedback">
-                   debe seleccionar la hora
-                </div>
-            </div>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary">Crear Cita</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>

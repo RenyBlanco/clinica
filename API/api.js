@@ -11,6 +11,35 @@ app.listen(5000, () => {
     console.log('Corriendo Servidor en puerto : 5000');
 });
 
+// API PARA CITAS
+
+app.post('/api/v1/guardaCita', (req, res) => { 
+    const { nombre, apellido, correo, rut, fecha, hora } = req.body;
+    const nuevo = {
+        nombre: nombre,
+        apellido: apellido,
+        rut: rut,
+        correo: correo,
+        fecha: fecha,
+        hora: hora
+    }
+    db.query('INSERT INTO citas SET ?', [nuevo], (err, result) =>{
+        if (err) {
+            const respuesta = {
+                tipo: "danger",
+                msg: "Algo ocurrió, cita NO creada!"
+            }
+            res.send(respuesta);
+        } else {
+            const respuesta = {
+                tipo: "success",
+                msg: "Cita agendada con éxito!, nos comunicaremos en breve"
+            }
+            res.send(respuesta);
+        }
+    });
+});
+
 // API USUARIOS
 app.get('/api/v1/usuarios', (req, res) => {
     db.query('SELECT u.id, u.nombre, u.correo, u.activo, r.rol FROM usuarios u INNER JOIN roles r ON u.rol_id = r.idroles ORDER BY u.nombre', (err, result) =>{
