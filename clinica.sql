@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 29, 2023 at 07:45 PM
+-- Generation Time: May 05, 2023 at 02:16 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -29,9 +29,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `citas` (
   `idcitas` int NOT NULL,
+  `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `correo` varchar(100) NOT NULL,
+  `apellido` varchar(50) NOT NULL,
+  `rut` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `fecha` date NOT NULL,
-  `rut` varchar(12) NOT NULL,
-  `hora` varchar(5) NOT NULL
+  `hora` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -93,7 +96,7 @@ CREATE TABLE `pacientes` (
 
 INSERT INTO `pacientes` (`idpaciente`, `nombre`, `correo`, `telefono`, `rut`, `direccion`, `id_historia`, `estado`) VALUES
 (1, 'Reinaldo Blanco', 'rey@rj.cl', '969158543', '25.801.628-9', 'Camino del sol,800, Quilpué', NULL, 1),
-(2, 'Oscar', 'correo@correo.com', '9 6915 8543', '16.500.544-9', 'Camino del sol, 800, Quilpue', NULL, 0);
+(2, 'Oscar', 'correo@correo.com', '9 6915 8543', '16.500.544-9', 'Camino del sol, 800, Quilpue', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -116,8 +119,8 @@ CREATE TABLE `permisos` (
 --
 
 INSERT INTO `permisos` (`id`, `id_modulo`, `id_rol`, `ins`, `updt`, `vw`, `dlt`) VALUES
-(1, 1, 1, 1, 1, 1, 1),
-(2, 2, 1, 1, 1, 1, 1),
+(1, 1, 1, 1, 1, 1, 0),
+(2, 2, 1, 1, 1, 1, 0),
 (3, 3, 1, 1, 1, 1, 1),
 (4, 4, 1, 1, 1, 1, 1);
 
@@ -173,9 +176,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
-('UujeesNzwUMbAi5osT4IzQJ6eq12gX8q', 1682870396, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
-('db1UKFxs--rn62gjDJfH-rXZpwK7bgw3', 1682859454, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
-('nflCh0SnOY7qWaXl3IytVVRy5869al3u', 1682859673, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}');
+('mq2M3IdAZjZiW_lygSTZ39VAvgFrFAom', 1683317175, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}');
 
 -- --------------------------------------------------------
 
@@ -288,7 +289,7 @@ ALTER TABLE `historias`
 -- AUTO_INCREMENT for table `modulos`
 --
 ALTER TABLE `modulos`
-  MODIFY `idmodulos` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idmodulos` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pacientes`
@@ -317,6 +318,12 @@ ALTER TABLE `usuarios`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `modulos`
+--
+ALTER TABLE `modulos`
+  ADD CONSTRAINT `modulos_ibfk_1` FOREIGN KEY (`idmodulos`) REFERENCES `permisos` (`id_modulo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `permisos`
